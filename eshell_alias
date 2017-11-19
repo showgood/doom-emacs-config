@@ -1,0 +1,10 @@
+alias gp git push
+alias gst git status $1
+alias gcmsg git commit -m $1
+alias ga git add $1
+alias ff find-file $1
+alias d 'dired $1'
+alias clean plink -d source -a sundev1 $1
+alias build plink -a sundev1 $1
+alias glum git pull upstream master
+alias gsu git status -uno
