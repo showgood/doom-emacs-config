@@ -9,3 +9,4 @@
 (package! eacl :recipe (:fetcher github :repo "redguardtoo/eacl"))
 (package! dired+ :recipe (:fetcher github :repo "emacsmirror/dired-plus"))
 (package! vlfi :recipe (:fetcher github :repo "m00natic/vlfi"))
+(package! doom-them-pack :recipe (:fetcher github :repo "hlissner/emacs-doom-themes"))

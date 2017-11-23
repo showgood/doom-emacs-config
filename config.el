@@ -5,21 +5,22 @@
 (setq doom-line-numbers-style nil)
 
 (load! +bindings)  ; my key bindings
-(load! +funcs)  ; functions
 (load! +myorg)  ; org configs
-(load! +sql)  ; sql queries
-(load! +myxml)  ; xml configs
+;; (load! +funcs)  ; functions
+;; (load! +sql)  ; sql queries
+;; (load! +myxml)  ; xml configs
+;; (load! +vc)  ; version control configs
+;; (load! +myediff)  ;ediff extra
+;; (load! +keys)  ; more key bindings
+;; (load! +bb)  ; bb configs (do this at last)
 (load! +alias)  ; emacs alias
-(load! +vc)  ; version control configs
-(load! +mydired)  ; dired configs
-(load! +keys)  ; more key bindings
 (load! +commands)  ; my custom ex commands
-(load! +myediff)  ;ediff extra
 (load! +myabbrev)
-(load! +bb)  ; bb configs (do this at last)
 
 (require 'vlf)
 (require 'vlf-setup)
+
+(setq +org-dir (concat (substitute-in-file-name "$HOME/") "org"))
 
 (defvar +xwu-dir (file-name-directory load-file-name))
 (defvar +xwu-snippets-dir (expand-file-name "snippets/" +xwu-dir))
@@ -196,5 +197,78 @@
 (add-hook 'term-mode-hook   'with-editor-export-editor)
 (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
+;; use web-mode instead of nxml for xml
+(add-to-list 'auto-mode-alist '("\\.xml$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.xsd$" . web-mode))
+
+(add-hook  'vc-dir-mode-hook
+             (lambda ()
+               ;; Hide up-to-date and unregistered files.
+               (define-key vc-dir-mode-map
+                 (kbd "x") #'leuven-vc-dir-hide-up-to-date-and-unregistered)
+               (define-key vc-dir-mode-map
+                 (kbd "E") #'vc-ediff)
+               (define-key vc-dir-mode-map
+                 (kbd "#") #'vc-ediff-ignore-whitespace)
+                                         ; ediff-windows-wordwise?
+               ))
+
+(add-hook  'vc-svn-log-view-mode-hook
+           (lambda ()
+             (define-key vc-svn-log-view-mode-map
+               (kbd "E") #'vc-ediff)
+             (define-key vc-svn-log-view-mode-map
+               (kbd "#") #'vc-ediff-ignore-whitespace)
+                                        ; ediff-windows-wordwise?
+             ))
+
+;; https://oremacs.com/2015/01/17/setting-up-ediff/
+(defmacro csetq (variable value)
+  `(funcall (or (get ',variable 'custom-set)
+                'set-default)
+            ',variable ,value))
+
+; ignore white space
+(csetq ediff-diff-options "-w")
+
+;; http://oremacs.com/2015/01/13/dired-options/
+;;http://pragmaticemacs.com/emacs/dired-human-readable-sizes-and-sort-by-size/
+;; not working for mac
+;; (setq dired-listing-switches "-lah")
+
+;; this --group-directories-first doesn't work on mac os natively,
+;; also -G option doesn't work
+;; (setq dired-listing-switches "-laGh1v --group-directories-first")
+(setq dired-recursive-deletes 'always)
+
+;; when using find-dired, also list the result with size etc
+;; (setq find-ls-option '("-print0 | xargs -0 ls -alhd" . ""))
+(setq find-ls-option '("-print0 | xargs -0 ls -alh" . ""))
+
+;;http://irreal.org/blog/?p=3341
+;; display file details for dired
+;; this needs to happen before loading dired+
+(setq diredp-hide-details-initially-flag nil)
+
+;; delete file permanently, do not move to trash bin
+(setq delete-by-moving-to-trash nil)
+
+;; https://www.reddit.com/r/emacs/comments/1493oa/emacsmovies_season_2_dired/
+;; Make df output in dired buffers easier to read
+(setq dired-free-space-args "-Pm")
+
+;; Try suggesting dired targets
+(setq dired-dwim-target t)
+
+;; Understand .zip the way it does tarballs, letting the Z key decompress it:
+;; Handle zip compression
+(eval-after-load "dired-aux"
+  '(add-to-list 'dired-compress-file-suffixes
+                '("\\.zip\\'" ".zip" "unzip")))
+
 ;; maximize emacs upon startup
 (toggle-frame-maximized)
+
+;; set this so search is performed on all buffers,
+;; not just current buffer
+(setq avy-all-windows t)
