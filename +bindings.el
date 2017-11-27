@@ -228,8 +228,8 @@
      ;; :desc "Find file in dotfiles"     :n "d" #'+hlissner/find-in-dotfiles
      :desc "Browse dotfiles"           :n "D" #'+hlissner/browse-dotfiles
      :desc "dired jump"                :n "j" #'dired-jump
-     :desc "Find file in emacs.d"      :n "e" #'+hlissner/find-in-emacsd
-     :desc "Browse emacs.d"            :n "E" #'+hlissner/browse-emacsd
+     :desc "Find file in emacs.d"      :n "e" #'+xwu/find-in-emacsd
+     :desc "Browse emacs.d"            :n "E" #'+xwu/browse-emacsd
      :desc "Find File"                 :n "f" #'counsel-find-file
      :desc "delete file"               :n "d" #'+evil:delete-this-file
      :desc "Recent files"              :n "R" #'counsel-recentf
@@ -912,3 +912,5 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 (define-key global-map (kbd "\C-cs") 'new-shell)
+
+(global-set-key (kbd "M-y") 'counsel-yank-pop)

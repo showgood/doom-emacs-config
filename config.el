@@ -6,13 +6,6 @@
 
 (load! +bindings)  ; my key bindings
 (load! +myorg)  ; org configs
-;; (load! +funcs)  ; functions
-;; (load! +sql)  ; sql queries
-;; (load! +myxml)  ; xml configs
-;; (load! +vc)  ; version control configs
-;; (load! +myediff)  ;ediff extra
-;; (load! +keys)  ; more key bindings
-;; (load! +bb)  ; bb configs (do this at last)
 (load! +alias)  ; emacs alias
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
@@ -272,3 +265,10 @@
 ;; set this so search is performed on all buffers,
 ;; not just current buffer
 (setq avy-all-windows t)
+
+(autoload 'dash-at-point "dash-at-point"
+          "Search the word at point with Dash." t nil)
+(global-set-key "\C-cd" 'dash-at-point)
+
+;; allow to select from kill-ring history while in minibuffer
+(setq enable-recursive-minibuffers t)

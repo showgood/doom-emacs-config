@@ -6,7 +6,7 @@
 private/xwu157/snippets."
   (interactive)
   (doom-fetch :github "xwu/emacs-snippets"
-              (expand-file-name "snippets" (doom-module-path :private 'hlissner))))
+              (expand-file-name "snippets" (doom-module-path :private 'xwu157))))
 
 (defmacro +hlissner-def-finder! (name dir)
   "Define a pair of find-file and browse functions."
@@ -38,7 +38,8 @@ private/xwu157/snippets."
 
 ;;;###autoload (autoload '+xwu/find-in-emacsd "private/xwu157/autoload/xwu" nil t)
 ;;;###autoload (autoload '+xwu/browse-emacsd "private/xwu157/autoload/xwu" nil t)
-(+hlissner-def-finder! emacsd doom-emacs-dir)
+;; (+hlissner-def-finder! emacsd doom-emacs-dir)
+(+hlissner-def-finder! emacsd +xwu-dir)
 
 ;;;###autoload (autoload '+xwu/find-in-notes "private/xwu157/autoload/xwu" nil t)
 ;;;###autoload (autoload '+xwu/browse-notes "private/xwu157/autoload/xwu" nil t)
