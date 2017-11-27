@@ -198,3 +198,12 @@ Repeated invocations toggle between the two most recently open buffers."
       (save-selected-window
         (other-window 1)
         (switch-to-buffer (other-buffer))))))
+
+;;;###autoload
+(defun doom/jump-to-last-workspace ()
+  "Open the previously selected workspace, if it exists."
+  (interactive)
+  (unless (eq 'non-existent
+              (gethash doom-last-selected-workspace
+                       *persp-hash* 'non-existent))
+    (persp-switch doom-last-selected-workspace)))

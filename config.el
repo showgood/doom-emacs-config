@@ -272,3 +272,16 @@
 
 ;; allow to select from kill-ring history while in minibuffer
 (setq enable-recursive-minibuffers t)
+
+(defvar doom-default-workspace-name "main"
+  " Name of the default layout.")
+
+(defvar doom-last-selected-workspace doom-default-workspace-name
+  "Previously selected layout.")
+
+(defun +workspace/save-name(name frame)
+  (setq doom-last-selected-workspace persp-last-persp-name)
+  (message (format "persp-last: %s" persp-last-persp-name))
+)
+
+(add-hook 'persp-before-switch-functions #'+workspace/save-name)

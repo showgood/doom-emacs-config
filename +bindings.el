@@ -165,6 +165,7 @@
      :desc "Delete this workspace"    :n "d"   #'+workspace/delete
      :desc "Load workspace from file" :n "L"   #'+workspace/load
      :desc "rename workspace"         :n "r"   #'+workspace/rename
+     :desc "toggle between workspace" :n "TAB" #'doom/jump-to-last-workspace
      :desc "switch layout"            :n "l"   #'+workspace/switch-to)
 
    (:desc "bookmark" :prefix "o"
