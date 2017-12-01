@@ -1,0 +1,2 @@
+* disable hl-line-mode in terminal buffer
+* make all commands with spc prefix work in dired buffer
