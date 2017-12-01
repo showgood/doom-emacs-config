@@ -2,11 +2,11 @@
 
 ;;;###autoload
 (defun +xwu/install-snippets ()
-  "Install my snippets from https://github.com/xwu157/emacs-snippets into
-private/xwu157/snippets."
+  "Install my snippets from https://github.com/showgood/emacs-snippets into
+private/user-login-name/snippets."
   (interactive)
-  (doom-fetch :github "xwu/emacs-snippets"
-              (expand-file-name "snippets" (doom-module-path :private 'xwu157))))
+  (doom-fetch :github "showgood/emacs-snippets"
+              (expand-file-name "snippets" (doom-module-path :private user-login-name ))))
 
 (defmacro +hlissner-def-finder! (name dir)
   "Define a pair of find-file and browse functions."
@@ -24,23 +24,23 @@ private/xwu157/snippets."
        (let ((default-directory ,dir))
          (call-interactively (command-remapping #'find-file))))))
 
-;;;###autoload (autoload '+xwu/find-in-templates "private/xwu157/autoload/xwu" nil t)
-;;;###autoload (autoload '+xwu/browse-templates "private/xwu157/autoload/xwu" nil t)
+;;;###autoload (autoload '+xwu/find-in-templates (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-templates (format "private/%s/autoload/xwu" user-login-name) nil t)
 (+hlissner-def-finder! templates +file-templates-dir)
 
-;;;###autoload (autoload '+xwu/find-in-snippets "private/xwu157/autoload/xwu" nil t)
-;;;###autoload (autoload '+xwu/browse-snippets "private/xwu157/autoload/xwu" nil t)
+;;;###autoload (autoload '+xwu/find-in-snippets (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-snippets (format "private/%s/autoload/xwu" user-login-name) nil t)
 (+hlissner-def-finder! snippets +xwu-snippets-dir)
 
-;;;###autoload (autoload '+xwu/find-in-dotfiles "private/xwu157/autoload/xwu" nil t)
-;;;###autoload (autoload '+xwu/browse-dotfiles "private/xwu157/autoload/xwu" nil t)
+;;;###autoload (autoload '+xwu/find-in-dotfiles (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-dotfiles (format "private/%s/autoload/xwu" user-login-name) nil t)
 (+hlissner-def-finder! dotfiles (expand-file-name "dotfiles" "~"))
 
-;;;###autoload (autoload '+xwu/find-in-emacsd "private/xwu157/autoload/xwu" nil t)
-;;;###autoload (autoload '+xwu/browse-emacsd "private/xwu157/autoload/xwu" nil t)
+;;;###autoload (autoload '+xwu/find-in-emacsd (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-emacsd (format "private/%s/autoload/xwu" user-login-name) nil t)
 ;; (+hlissner-def-finder! emacsd doom-emacs-dir)
 (+hlissner-def-finder! emacsd +xwu-dir)
 
-;;;###autoload (autoload '+xwu/find-in-notes "private/xwu157/autoload/xwu" nil t)
-;;;###autoload (autoload '+xwu/browse-notes "private/xwu157/autoload/xwu" nil t)
+;;;###autoload (autoload '+xwu/find-in-notes (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-notes (format "private/%s/autoload/xwu" user-login-name) nil t)
 (+hlissner-def-finder! notes +org-dir)

@@ -823,6 +823,34 @@
 
 (evil-define-key 'normal dired-mode-map (kbd "e") 'ora-ediff-files)
 
+;; (map! :map magit-mode-map
+;;     :m \"C-r\" 'do-something           ; assign C-r in motion state
+;;     :nv \"q\" 'magit-mode-quit-window  ; assign to 'q' in normal and visual states
+;;     \"C-x C-r\" 'a-global-keybind
+
+(evil-define-key 'normal term-raw-map "p" 'term-paste)
+(evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
+(evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
+
+;; (eval-after-load 'multi-term
+;;   '(progn
+;;      (dolist (p '(("C-p" . term-senjd-up)
+;;                   f("C-n" . term-send-down)
+;;                   ("C-s" . swiper)
+;;                   ("C-r" . term-send-reverse-search-history)
+;;                   ("C-m" . term-send-raw)
+;;                   ("C-k" . term-send-kill-whole-line)
+;;                   ("C-y" . yank)
+;;                   ("C-_" . term-send-raw)
+;;                   ("M-f" . term-send-forward-word)
+;;                   ("M-b" . term-send-backward-word)
+;;                   ("M-K" . term-send-kill-line)
+;;                   ("M-p" . previous-line)
+;;                   ("M-n" . next-line)
+;;                   ("M-y" . yank-pop)
+;; (setq term-bind-key-alist (delq (assoc (car p) term-bind-key-alist) jterm-bind-key-falist))
+;; (add-to-list 'term-bind-key-alist p))))))
+
 ;; (global-set-key (kbd "<f2>") 'org-clock-goto)
 ;; (global-set-key (kbd "<f3>") 'org-clock-in)
 ;; (global-set-key (kbd "<f4>") 'org-clock-out)

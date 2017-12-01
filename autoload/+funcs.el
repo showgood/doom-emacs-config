@@ -207,3 +207,10 @@ Repeated invocations toggle between the two most recently open buffers."
               (gethash doom-last-selected-workspace
                        *persp-hash* 'non-existent))
     (persp-switch doom-last-selected-workspace)))
+
+;;;###autoload
+(defun xml-format ()
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (mark) (point) "xmllint --format -" (buffer-name) t)
+))

@@ -183,12 +183,13 @@
 
 (load! toolkit-tramp)
 (require 'toolkit-tramp)
-;; http://emacs.stackexchange.com/questions/27/how-can-i-use-my-local-emacs-client-as-the-editor-for-remote-machines-i-access
-(require 'with-editor)
 
-(add-hook 'shell-mode-hook  'with-editor-export-editor)
-(add-hook 'term-mode-hook   'with-editor-export-editor)
-(add-hook 'eshell-mode-hook 'with-editor-export-editor)
+;; http://emacs.stackexchange.com/questions/27/how-can-i-use-my-local-emacs-client-as-the-editor-for-remote-machines-i-access
+;; (require 'with-editor)
+
+;; (add-hook 'shell-mode-hook  'with-editor-export-editor)
+;; (add-hook 'term-mode-hook   'with-editor-export-editor)
+;; (add-hook 'eshell-mode-hook 'with-editor-export-editor)
 
 ;; use web-mode instead of nxml for xml
 (add-to-list 'auto-mode-alist '("\\.xml$" . web-mode))
@@ -285,3 +286,10 @@
 )
 
 (add-hook 'persp-before-switch-functions #'+workspace/save-name)
+
+(defun setup-my-term-mode()
+  (setq-local global-hl-line-mode nil)
+)
+
+(add-hook 'term-mode-hook #'setup-my-term-mode)
+;; (add-hook 'evil-visual-state-exit-hook #'hl-line-mode)
