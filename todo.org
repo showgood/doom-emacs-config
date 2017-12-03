@@ -1,2 +1,25 @@
-* disable hl-line-mode in terminal buffer
-* make all commands with spc prefix work in dired buffer
+* ✔ DONE disable hl-line-mode in terminal buffer
+* ☛ TODO make all commands with spc prefix work in dired buffer
+* ✔ DONE make term-mode play nicely with evil-mode
+* ☛ TODO enable C-y for term-paste in term-mode
+* ☛ TODO better experience with jump mark
+basically we need to call *evil-scroll-line-to-center*
+so the jumping location is always in the center of screen,
+not at top or bottom
+
+first try:
+#+BEGIN_SRC elisp
+(defadvice evil-goto-mark-line (after evil-scroll-line-to-center activate)
+  (interactive)
+)
+#+END_SRC
+not working..
+* ☛ TODO enable hjkl navigation in magit buffer
+* ☛ TODO change ediff colorscheme for better visual effect when diff
+currently it's really hard to see the difference
+* major mode for viewing log file
+https://github.com/doublep/logview
+https://writequit.org/articles/working-with-logs-in-emacs.html
+
+https://github.com/DamienCassou/json-navigator
+https://github.com/Sterlingg/json-snatcher

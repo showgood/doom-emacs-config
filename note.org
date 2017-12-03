@@ -14,3 +14,48 @@
 - select candidate using visual mode
 - press *gzm* and multiple cursors will be created for all the matches
 - get into insert mode to start multi-cursor action
+* make term-mode play nice with evil mode
+#+BEGIN_SRC elisp
+(defun enter-evil-normal()
+  (interactive)
+  (evil-normal-state))
+
+(defun setup-my-term-mode()
+  (setq-local global-hl-line-mode nil)
+  (define-key term-raw-map (kbd "<escape>") 'enter-evil-normal)
+  ;; (term-line-mode)
+)
+
+(evil-define-key 'normal term-raw-map "p" 'term-paste)
+(evil-define-key 'normal term-raw-map "i" 'evil-emacs-state)
+
+#+END_SRC
+* useful things
+in visual mode, *gr* will evaulate the region
+ # :n  "gr" #'+eval:region
+ # :n  "gR" #'+eval/buffer
+* defadvice
+(defadvice switch-to-buffer (before existing-buffer
+                             activate compile)
+  "When interactive, switch to existing buffers only."
+  (interactive "b"))
+
+  Let's look at this closely. The function defadvice creates a new piece of
+  advice. Its first argument is the (unquoted) name of the existing function
+  being advised—in this case, switch-to-buffer. Next comes a specially formatted
+  list. Its first element—in this case, before—tells whether this is "before" or
+  "after" advice. (Another type of advice, called "around," lets you embed a
+  call to the advised function inside the advice code.) Next comes the name of
+  this piece of advice; I named it existing-buffer. The name can be used later
+  if you want to remove or modify the advice. Next come some keywords: activate
+  means that this advice should be active as soon as it's defined (it's possible
+  to define advice but leave it inactive); and compile means that the advice
+  code should be "byte-compiled" for speed (see Chapter 5).
+* misc
+- *how-many* will return number of matches
+- *keep-lines* will only keep lines match pattern
+- *flush-lines* will delete lines match pattern
+- follow-mode
+* quickly toggle between two windows with ace-window
+https://oremacs.com/2015/03/06/ace-window-toggle/
+basically use *SPC w w n*

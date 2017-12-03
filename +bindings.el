@@ -31,15 +31,68 @@
  :nvime "<f3>" #'org-clock-in
  :nvime "<f4>" #'org-clock-out
  :nvime "<f6>" #'rtags-find-symbol-at-point
- :nvime "<f7> e" #'eval-region
+
+:nvime "<f5> a" #'org-archive-subtree
+:nvime "<f5> c" #'calendar
+:nvime "<f5> d" #'ace-delete-window
+:nvime "<f5> l" (lambda () (interactive) (list-matching-lines (current-word)))
+:nvime "<f5> r" 'org-refile
+
+:nvime "<f7> b" #'counsel-projectile-switch-to-buffer
+:nvime "<f7> c" #'projectile-compile-project
+:nvime "<f7> d" #'counsel-projectile-find-dir
+:nvime "<f7> e" #'eval-region
+:nvime "<f7> f" #'counsel-projectile-find-file
+;; open the file under cursor within project (C-c p g)
+:nvime "<f7> g" #'projectile-find-file-dwim
+:nvime "<f7> o" #'projectile-find-file-dwim-other-window
+:nvime "<f7> s" #'counsel-rg
+
+:nvime "<f8> c" #'eacl-complete-line
+
+:nvime "<f9> c" #'cp-filename-of-current-buffer
+;; copy current line
+:nvime "<f9> d" #'duplicate-line
+:nvime "<f9> e" #'+eshell/open
+:nvime "<f9> a" #'org-attach
+:nvime "<f9> r" #'rename-buffer
+
+:nvime "<f10>" #'org-capture
+:nvime "<f11>" #'org-agenda
+:nvime "<f12>" #'org-todo
 
  ;; TODO this one does not seem to work in minifbuffer find out why
- :nvime "M-y" #'counsel-yank-pop
+:nvime "M-y" #'counsel-yank-pop
 
- :nvime "C-c <left>" #'winner-undo
- :nvime "C-c <right>" #'winner-redo
+:nvime "C-c <left>" #'winner-undo
+:nvime "C-c <right>" #'winner-redo
 
- :nie "C-c k" #'evil-avy-goto-char-2
+:nvime "C-c +" #'evil-numbers/inc-at-pt
+:nvime "C-c -" #'evil-numbers/dec-at-pt
+
+:nvime "C-x b" #'counsel-bookmark
+:nvime "C-x c" #'cp-filename-of-current-buffer
+:nvime "C-x f" #'counsel-git
+:nvime "C-x g" #'counsel-git-grep
+:nvime "C-x k" #'kill-this-buffer
+:nvime "C-x j" #'evil-avy-goto-char-2
+:nvime "C-x m" #'magit-status
+:nvime "C-x o" #'ace-window
+:nvime "C-x s" #'avy-pop-mark
+;; quickly select the content for a xml element for replace
+:nvime "C-x t" #'web-mode-element-content-select
+
+:nvime "\C-ca" #'org-agenda
+:nvime "\C-cc" #'org-capture
+:nvime "\C-co" #'evil-replace-word-selection
+:nvime "\C-cl" #'org-store-link
+:nvime "\C-cr" #'org-refile
+;; "\C-cj" #'org-journal-new-entry
+
+:nvime "\C-cs" #'new-shell
+
+ ;; "\C-xp") 'spacemacs/copy-clipboard-to-whole-buffer)
+;; "\C-xY") 'spacemacs/copy-whole-buffer-to-clipboard)
 
  ;; Make M-x available everywhere
  :nvime "M-x" #'execute-extended-command
@@ -173,34 +226,36 @@
      :desc "switch layout"            :n "l"   #'+workspace/switch-to)
 
    (:desc "bookmark" :prefix "o"
-        :desc "set bookmark" :n "m"     #'bookmark-set
-        :desc "open bookmark buffer" :n "l"     #'bookmark-bmenu-list
-        :desc "set url bookmark" :n "u"     #'bmkp-url-target-set
-        :desc "jump to url bookmark" :n "w"     #'bmkp-url-jump
-        :desc "jump to file bookmark" :n "f"     #'bmkp-non-dir-file-jump
-        :desc "jump to dired bookmark" :n "d"     #'bmkp-dired-jump
-        :desc "jump to remote file bookmark" :n "r"     #'bmkp-remote-file-jump
-        :desc "set snippet bookmark" :n "s"     #'bmkp-set-snippet-bookmark
-        :desc "annotate bookmark" :n "a"     #'bmkp-annotate-bookmark
-        :desc "copy snippet bookmark" :n "k"     #'bmkp-snippet-to-kill-ring)
+     :desc "set bookmark"                 :n "m"     #'bookmark-set
+     :desc "open bookmark buffer"         :n "l"     #'bookmark-bmenu-list
+     :desc "set url bookmark"             :n "u"     #'bmkp-url-target-set
+     :desc "jump to url bookmark"         :n "w"     #'bmkp-url-jump
+     :desc "jump to file bookmark"        :n "f"     #'bmkp-non-dir-file-jump
+     :desc "jump to dired bookmark"       :n "d"     #'bmkp-dired-jump
+     :desc "jump to remote file bookmark" :n "r"     #'bmkp-remote-file-jump
+     :desc "set snippet bookmark"         :n "s"     #'bmkp-set-snippet-bookmark
+     :desc "annotate bookmark"            :n "a"     #'bmkp-annotate-bookmark
+     :desc "copy snippet bookmark"        :n "k"     #'bmkp-snippet-to-kill-ring)
 
    (:desc "application" :prefix "a"
-        :desc "align regexp" :nv "r"     #'align-regexp)
+        :desc "align regexp" :nv "r"     #'align-regexp
+        :desc "open terminal" :n "t"     #'+term/open)
 
    (:desc "window" :prefix "w"
-     :desc "maximize window"      :n "m"   #'delete-other-windows
-     :desc "split horizontally"   :n "-"   #'evil-window-split
-     :desc "split vertically"     :n "v"   #'evil-window-vsplit
-     :desc "swap window"          :n "s"   #'ace-swap-window
-     :desc "ace window"           :n "w"   #'ace-window
-     :desc "window up"            :n "k"   #'evil-window-up
-     :desc "window down"          :n "j"   #'evil-window-down
-     :desc "window left"          :n "h"   #'evil-window-left
-     :desc "window right"         :n "l"   #'evil-window-right
-     :desc "delete window"        :n "d"   #'delete-window
-     :desc "make frame"           :n "F"   #'make-frame
-     :desc "ace delete window"    :n "D"   #'ace-delete-window
-     :desc "toggle window layout" :n "t"   #'window-split-toggle)
+     :desc "select previous window" :n "TAB" #'aw-flip-window
+     :desc "maximize window"        :n "m"   #'delete-other-windows
+     :desc "split horizontally"     :n "-"   #'evil-window-split
+     :desc "split vertically"       :n "v"   #'evil-window-vsplit
+     :desc "swap window"            :n "s"   #'ace-swap-window
+     :desc "ace window"             :n "w"   #'ace-window
+     :desc "window up"              :n "k"   #'evil-window-up
+     :desc "window down"            :n "j"   #'evil-window-down
+     :desc "window left"            :n "h"   #'evil-window-left
+     :desc "window right"           :n "l"   #'evil-window-right
+     :desc "delete window"          :n "d"   #'delete-window
+     :desc "make frame"             :n "F"   #'make-frame
+     :desc "ace delete window"      :n "D"   #'ace-delete-window
+     :desc "toggle window layout"   :n "t"   #'window-split-toggle)
 
    (:desc "buffer" :prefix "b"
      :desc "New empty buffer"        :n "n" #'evil-buffer-new
@@ -809,13 +864,17 @@
   (kbd "<tab>") 'web-mode-fold-or-unfold
   ;; <S-tab> doesn't work for shift-tab, needs to use <backtab>
   ;; (kbd "<S-tab>") 'web-mode-element-children-fold-or-unfold)
-  (kbd "<backtab>") 'web-mode-element-children-fold-or-unfold)
+  (kbd "<backtab>") 'web-mode-element-children-fold-or-unfold
+  (kbd "SPC ev") 'web-mode-element-content-select)
 
 ;; http://ergoemacs.org/emacs/emacs_key_notation_return_vs_RET.html
 (evil-define-key 'normal org-mode-map (kbd "<tab>") 'org-cycle
                                       (kbd "<return>") 'org-open-at-point)
 
 (evil-define-key 'normal dired-mode-map (kbd "e") 'ora-ediff-files)
+
+(evil-define-key 'normal nxml-mode-map (kbd "SPC xp") 'nxml-where)
+(evil-define-key 'normal json-mode-map (kbd "SPC xp") 'jsons-print-path)
 
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
@@ -838,96 +897,3 @@
 ;;                   ("M-y" . yank-pop)
 ;; (setq term-bind-key-alist (delq (assoc (car p) term-bind-key-alist) jterm-bind-key-falist))
 ;; (add-to-list 'term-bind-key-alist p))))))
-
-;; (global-set-key (kbd "<f2>") 'org-clock-goto)
-;; (global-set-key (kbd "<f3>") 'org-clock-in)
-;; (global-set-key (kbd "<f4>") 'org-clock-out)
-
-(global-set-key (kbd "<f5> a") 'org-archive-subtree)
-(global-set-key (kbd "<f5> c") 'calendar)
-(global-set-key (kbd "<f5> d") 'ace-delete-window)
-(global-set-key (kbd "<f5> l") (lambda () (interactive) (list-matching-lines (current-word))))
-(global-set-key (kbd "<f5> r") 'org-refile)
-
-(global-set-key (kbd "<f6>") 'rtags-find-symbol-at-point)
-
-;; (global-set-key (kbd "<f7> e") 'eval-region)
-;; need to change since spacemacs 0.2 since ivy has taken f6
-;; toggle between hpp and cpp
-;; (global-set-key (kbd "<f7> a") 'projectile-find-other-file)
-;; ;; list the buffers for project
-(global-set-key (kbd "<f7> b") 'counsel-projectile-switch-to-buffer)
-;; ;; find directory within project
-(global-set-key (kbd "<f7> c") 'projectile-compile-project)
-(global-set-key (kbd "<f7> d") 'counsel-projectile-find-dir)
-;; ; find files within project (SPC-p-f)
-(global-set-key (kbd "<f7> f") 'counsel-projectile-find-file)
-;; ;; open the file under cursor within project (C-c p g)
-(global-set-key (kbd "<f7> g") 'projectile-find-file-dwim)
-(global-set-key (kbd "<f7> o") 'projectile-find-file-dwim-other-window)
-(global-set-key (kbd "<f7> s") '+ivy:ag)
-
-;; ;; search through project with grep
-;; not so useful, counsel-git-grep is good most of the time
-;; (global-set-key (kbd "<f7> s") 'counsel-projectile-ag)
-
-;; ;; find definition using ggtags
-;; (global-set-key (kbd "<f7> t") 'projectile-find-tag)
-
-;; ;; run vc on root directory of project
-;; magit works better most of time
-;; (global-set-key (kbd "<f7> v") 'projectile-vc)
-
-(global-set-key (kbd "<f8> c") 'eacl-complete-line)
-
-; copy the filename(without path) for current buffer
-(global-set-key (kbd "<f9> c") 'cp-filename-of-current-buffer)
-
-;; copy current line
-(global-set-key (kbd "<f9> d") 'duplicate-line)
-(global-set-key (kbd "<f9> e") '+eshell/open)
-(global-set-key (kbd "<f9> a") 'org-attach)
-(global-set-key (kbd "<f9> r") 'rename-buffer)
-
-;; gww (from doom-emacs) works better
-;; (global-set-key (kbd "<f9> q") 'fill-paragraph)
-
-(global-set-key (kbd "<f10>") 'org-capture)
-(global-set-key (kbd "<f11>") 'org-agenda)
-(global-set-key (kbd "<f12>") 'org-todo)
-
-;; only works in spacemacs
-;; (global-set-key (kbd "\C-c +") 'evil-numbers/inc-at-pt); mimic C-a in vim
-;; (global-set-key (kbd "\C-c -") 'evil-numbers/dec-at-pt); mimic C-x in vim
-
-(global-set-key (kbd "\C-ca") 'org-agenda)
-(global-set-key (kbd "\C-cc") 'org-capture)
-(global-set-key (kbd "\C-co") 'evil-replace-word-selection)
-(global-set-key (kbd "\C-cl") 'org-store-link)
-(global-set-key (kbd "\C-cr") 'org-refile)
-;; (global-set-key (kbd "\C-cj") 'org-journal-new-entry)
-
-(global-set-key (kbd "\C-xb") 'avy-pop-mark)
-(global-set-key (kbd "\C-xc") 'cp-filename-of-current-buffer)
-(global-set-key (kbd "\C-xf") 'counsel-git)
-(global-set-key (kbd "\C-xg") 'counsel-git-grep)
-(global-set-key (kbd "\C-xk") 'kill-this-buffer)
-(global-set-key (kbd "\C-xj") 'avy-goto-char-2)
-(global-set-key (kbd "\C-xm") 'magit-status)
-(global-set-key (kbd "\C-xo") 'ace-window)
-;; (global-set-key (kbd "\C-xp") 'spacemacs/copy-clipboard-to-whole-buffer)
-(global-set-key (kbd "\C-xs") 'avy-pop-mark)
-(global-set-key (kbd "\C-xw") 'avy-pop-mark)
-;; quickly select the content for a xml element for replace
-(global-set-key (kbd "\C-xt") 'web-mode-element-content-select)
-;; (global-set-key (kbd "\C-xy") 'spacemacs/show-and-copy-buffer-filename)
-;; (global-set-key (kbd "\C-xY") 'spacemacs/copy-whole-buffer-to-clipboard)
-
-(global-set-key (kbd "\C-cb") 'counsel-bookmark)
-
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
-
-(define-key global-map (kbd "\C-cs") 'new-shell)
-
-(global-set-key (kbd "M-y") 'counsel-yank-pop)

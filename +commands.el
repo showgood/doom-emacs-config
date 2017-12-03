@@ -8,14 +8,15 @@
 
 ;;; Custom commands
 ;; Editing
-(ex! "@"            #'+evil:macro-on-all-lines)   ; TODO Test me
-(ex! "al[ign]"      #'+evil:align)
-(ex! "enhtml"       #'+web:encode-html-entities)
-(ex! "dehtml"       #'+web:decode-html-entities)
-(ex! "mc"           #'+evil:mc)
-(ex! "iedit"        #'evil-multiedit-ex-match)
-(ex! "na[rrow]"     #'+evil:narrow-buffer)
-(ex! "retab"        #'+evil:retab)
+(ex! "@"        #'+evil:macro-on-all-lines)   ; TODO Test me
+(ex! "al[ign]"  #'+evil:align)
+(ex! "enhtml"   #'+web:encode-html-entities)
+(ex! "dehtml"   #'+web:decode-html-entities)
+(ex! "mc"       #'+evil:mc)
+(ex! "iedit"    #'evil-multiedit-ex-match)
+(ex! "na[rrow]" #'+evil:narrow-buffer)
+(ex! "wi[den]"  #'widen)
+(ex! "retab"    #'+evil:retab)
 
 ;; External resources
 ;; TODO (ex! "db"          #'doom:db)
@@ -35,7 +36,7 @@
 (ex! "gistl"       #'+gist:list)  ; list gists by user
 (ex! "gbrowse"     #'+vcs/git-browse)        ; show file in github/gitlab
 (ex! "gissues"     #'+vcs/git-browse-issues) ; show github issues
-(ex! "git"         #'magit-status)           ; open magit status window
+(ex! "gst"         #'magit-status)           ; open magit status window
 (ex! "gstage"      #'magit-stage)
 (ex! "gunstage"    #'magit-unstage)
 (ex! "gblame"      #'magit-blame)
@@ -52,22 +53,14 @@
 (ex! "pop[up]"     #'doom/popup-this-buffer)
 
 ;; Project navigation
-(ex! "a"           #'projectile-find-other-file)
-(ex! "cd"          #'+hlissner:cd)
-(cond ((featurep! :completion ivy)
-       (ex! "ag"       #'+ivy:ag)
-       (ex! "agc[wd]"  #'+ivy:ag-cwd)
-       (ex! "rg"       #'+ivy:rg)
-       (ex! "rgc[wd]"  #'+ivy:rg-cwd)
-       (ex! "sw[iper]" #'+ivy:swiper)
-       (ex! "todo"     #'+ivy:todo))
-      ((featurep! :completion helm)
-       (ex! "ag"       #'+helm:ag)
-       (ex! "agc[wd]"  #'+helm:ag-cwd)
-       (ex! "rg"       #'+helm:rg)
-       (ex! "rgc[wd]"  #'+helm:rg-cwd)
-       (ex! "sw[oop]"  #'+helm:swoop)
-       (ex! "todo"     #'+helm:todo)))
+;; (ex! "a"           #'projectile-find-other-file)
+(ex! "cd"       #'+hlissner:cd)
+(ex! "ag"       #'+ivy:ag)
+(ex! "agc[wd]"  #'+ivy:ag-cwd)
+(ex! "rg"       #'+ivy:rg)
+(ex! "rgc[wd]"  #'+ivy:rg-cwd)
+(ex! "sw[iper]" #'+ivy:swiper)
+(ex! "todo"     #'+ivy:todo)
 
 ;; Project tools
 (ex! "build"       #'+eval/build)

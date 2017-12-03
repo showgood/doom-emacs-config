@@ -1,5 +1,3 @@
-;;; private/xwu157/autoload/+me.el -*- lexical-binding: t; -*-
-
 ;;;###autoload
 (defun +xwu/install-snippets ()
   "Install my snippets from https://github.com/showgood/emacs-snippets into
