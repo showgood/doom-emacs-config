@@ -16,7 +16,6 @@
 
 (defvar +xwu-dir (file-name-directory load-file-name))
 (defvar +xwu-snippets-dir (expand-file-name "snippets/" +xwu-dir))
-
 (setq epa-file-encrypt-to user-mail-address
       auth-sources (list (expand-file-name ".authinfo.gpg" +xwu-dir))
       +doom-modeline-buffer-file-name-style 'relative-from-project)
@@ -324,4 +323,13 @@
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)
 
+;; https://writequit.org/articles/working-with-logs-in-emacs.html
+(setq auto-revert-tail-mode t)
 
+(require 'evil-numbers)
+
+(require 'beacon)
+(beacon-mode 1)
+(setq beacon-color "#66cd00")
+(setq beacon-size 50)
+(setq beacon-blink-delay 0.7)
