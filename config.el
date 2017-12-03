@@ -272,7 +272,7 @@
 
 ;; set this so search is performed on all buffers,
 ;; not just current buffer
-(setq avy-all-windows t)
+;; (setq avy-all-windows t)
 
 (autoload 'dash-at-point "dash-at-point"
           "Search the word at point with Dash." t nil)
@@ -294,10 +294,34 @@
 
 (add-hook 'persp-before-switch-functions #'+workspace/save-name)
 
+(defun me/paste-in-term-mode()
+  (interactive)
+  (term-paste)
+  (evil-emacs-state)
+)
+
 (defun setup-my-term-mode()
   (setq-local global-hl-line-mode nil)
-  ;; (term-line-mode)
+  (define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
+  (define-key term-raw-map (kbd "C-;") 'evil-normal-state)
+
+  ;; TODO: needs more work for this to work
+  ;; (define-key term-raw-map (kbd "jf") 'enter-evil-normal)
+  ;; TODO: not working due to C-y is defined globally
+  ;; (define-key term-raw-map (kbd "C-y") 'term-paste)
+
+  (define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
+  ;; NOTE: automatically switch to evil-emacs-state
+  ;; after press *p* in normal mode which seems the case most of the time
+  (evil-define-key 'normal term-raw-map
+    ;; "p" 'term-paste
+    "p" 'me/paste-in-term-mode
+    "i" 'evil-emacs-state
+    "I" 'evil-emacs-state
+    "a" 'evil-emacs-state
+    "A" 'evil-emacs-state)
 )
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)
-;; (add-hook 'evil-visual-state-exit-hook #'hl-line-mode)
+
+

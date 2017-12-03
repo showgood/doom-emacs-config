@@ -17,9 +17,11 @@
 
 (map!
  ;; --- Global keybindings ---------------------------
-
  ;; very important to me, smoothier workflow
+
+ ;; TODO: conflict with term-mode
  :nvime "C-y" #'yank
+
  :vime "M-SPC" #'+company/complete
  :vime "M-/" #'dabbrev-expand
  :nvime "<f12>" #'org-todo
@@ -36,6 +38,8 @@
 
  :nvime "C-c <left>" #'winner-undo
  :nvime "C-c <right>" #'winner-redo
+
+ :nie "C-c k" #'evil-avy-goto-char-2
 
  ;; Make M-x available everywhere
  :nvime "M-x" #'execute-extended-command
@@ -194,6 +198,7 @@
      :desc "window left"          :n "h"   #'evil-window-left
      :desc "window right"         :n "l"   #'evil-window-right
      :desc "delete window"        :n "d"   #'delete-window
+     :desc "make frame"           :n "F"   #'make-frame
      :desc "ace delete window"    :n "D"   #'ace-delete-window
      :desc "toggle window layout" :n "t"   #'window-split-toggle)
 
@@ -226,16 +231,16 @@
      :desc "Find file from here"       :n "?" #'counsel-file-jump
      :desc "Find other file"           :n "a" #'projectile-find-other-file
      :desc "Open project editorconfig" :n "c" #'editorconfig-find-current-editorconfig
-     ;; :desc "Find file in dotfiles"     :n "d" #'+hlissner/find-in-dotfiles
-     :desc "Browse dotfiles"           :n "D" #'+hlissner/browse-dotfiles
-     :desc "dired jump"                :n "j" #'dired-jump
+     :desc "delete file"               :n "d" #'+evil:delete-this-file
      :desc "Find file in emacs.d"      :n "e" #'+xwu/find-in-emacsd
      :desc "Browse emacs.d"            :n "E" #'+xwu/browse-emacsd
      :desc "Find File"                 :n "f" #'counsel-find-file
-     :desc "delete file"               :n "d" #'+evil:delete-this-file
-     :desc "Recent files"              :n "R" #'counsel-recentf
+     :desc "dired jump"                :n "j" #'dired-jump
      :desc "yank file name only"       :n "n" #'cp-filename-of-current-buffer
-     :desc "Yank file full path"       :n "p" #'+hlissner/yank-buffer-filename)
+     :desc "Yank file full path"       :n "p" #'+hlissner/yank-buffer-filename
+     :desc "Recent files"              :n "R" #'counsel-recentf
+     :desc "Find file in dotfiles"     :n "." #'+xwu/find-in-dotfiles
+     :desc "Browse dotfiles"           :n "T" #'+xwu/browse-dotfiles)
 
    (:desc "git" :prefix "g"
      :desc "Git status"        :n  "s" #'magit-status
@@ -317,14 +322,6 @@
      :desc "Pop term in project"     :n  "o" #'+term/open-popup-in-project
      :desc "Invalidate cache"        :n  "x" #'projectile-invalidate-cache)
 
-   (:desc "remote" :prefix "r"
-     :desc "Upload local"           :n "u" #'+upload/local
-     :desc "Upload local (force)"   :n "U" (λ! (+upload/local t))
-     :desc "Download remote"        :n "d" #'+upload/remote-download
-     :desc "Diff local & remote"    :n "D" #'+upload/diff
-     :desc "Browse remote files"    :n "." #'+upload/browse
-     :desc "Detect remote changes"  :n ">" #'+upload/check-remote)
-
    (:desc "snippets" :prefix "s"
      :desc "New snippet"           :n  "n" #'yas-new-snippet
      :desc "Insert snippet"        :nv "i" #'yas-insert-snippet
@@ -369,6 +366,11 @@
  ;; paste from recent yank register (which isn't overwritten)
  :v  "C-p" "\"0p"
 
+ ;; ----------- rtags bindings ----------------------
+ (:prefix ","
+   :n "d" #'rtags-find-symbol-at-point
+   :n "r" #'rtags-find-references-at-point)
+
  (:map evil-window-map ; prefix "C-w"
    ;; Navigation
    "C-h"     #'evil-window-left
@@ -390,7 +392,6 @@
    ;; Delete window
    "c"       #'+workspace/close-window-or-workspace
    "C-C"     #'ace-delete-window)
-
 
  ;; --- Plugin bindings ------------------------------
  ;; auto-yasnippet
@@ -655,11 +656,13 @@
  :textobj "I" #'evil-indent-plus-i-indent-up      #'evil-indent-plus-a-indent-up
  :textobj "J" #'evil-indent-plus-i-indent-up-down #'evil-indent-plus-a-indent-up-down
 
-
  ;; --- Built-in plugins -----------------------------
  (:after comint
    ;; TAB auto-completion in term buffers
-   :map comint-mode-map [tab] #'company-complete)
+   :map comint-mode-map
+   [tab] #'company-complete
+   [up] #'comint-previous-input
+   [down] #'comint-next-input)
 
  (:after debug
    ;; For elisp debugging
@@ -812,20 +815,10 @@
 (evil-define-key 'normal org-mode-map (kbd "<tab>") 'org-cycle
                                       (kbd "<return>") 'org-open-at-point)
 
-;; (add-hook 'shell-mode-hook
-;;           (lambda ()
-;;             (define-key shell-mode-map (kbd "<up>") 'comint-previous-input)
-;;             (define-key shell-mode-map (kbd "<down>") 'comint-next-input)))
-
-(evil-define-key 'insert shell-mode-map
-  (kbd "<up>") 'comint-previous-input
-  (kbd "<down>") 'comint-next-input)
-
 (evil-define-key 'normal dired-mode-map (kbd "e") 'ora-ediff-files)
 
-(evil-define-key 'normal term-raw-map "p" 'term-paste)
-(evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
-(evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
+;; (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
+;; (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
 
 ;; (eval-after-load 'multi-term
 ;;   '(progn

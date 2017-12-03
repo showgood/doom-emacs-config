@@ -13,6 +13,8 @@
   ("namepsace" "namespace")
   ("inlcude" "include")
   ("ustd" "using namespace std;")
+  ("td" "TODO:")
+  ("nt" "NOTE:")
 
   ;; emacs regex
   ("8d" "\\([0-9]+?\\)")
