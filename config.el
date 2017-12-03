@@ -1,5 +1,3 @@
-;;; private/xwu157/config.el -*- lexical-binding: t; -*-
-
 ;; I don't need linenum most of the time
 ;; hopefully can speed up a bit for large file
 (setq doom-line-numbers-style nil)
@@ -7,6 +5,7 @@
 (load! +bindings)  ; my key bindings
 (load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
+(load! +bb)  ; bb specific
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
 
@@ -17,8 +16,6 @@
 
 (defvar +xwu-dir (file-name-directory load-file-name))
 (defvar +xwu-snippets-dir (expand-file-name "snippets/" +xwu-dir))
-;; (setq doom-cache-dir (concat (substitute-in-file-name "$HOME/") ".emacs_cache"))
-;; (setq doom-etc-dir (concat (substitute-in-file-name "$HOME/") ".emacs_etc"))
 
 (setq epa-file-encrypt-to user-mail-address
       auth-sources (list (expand-file-name ".authinfo.gpg" +xwu-dir))
@@ -101,8 +98,14 @@
 (defalias 'wc 'display-time-world)
 
 (require 'eacl)
+
+;;-------------------------------
+;; rtags related settings
+;;-------------------------------
 (require 'rtags)
-(setq rtags-socket-file "/home/xwu157/.rdm")
+(setq rtags-socket-file (concat (substitute-in-file-name "$HOME/") ".rdm"))
+;; (setq rtags-path "/opt/bb/bin")
+;; (setq rtags-completions-enabled t)
 
 ;; show autocomplete popup, disable by default
 ;; disable it since it's too slow
@@ -111,16 +114,17 @@
       company-minimum-prefix-length 3)
 
 ;; (require 'company-rtags)
-
-;; (setq rtags-completions-enabled t)
 ;; (eval-after-load 'company
 ;;   '(add-to-list
 ;;     'company-backends 'company-rtags))
 ;; (setq rtags-autostart-diagnostics t)
 ;; (rtags-enable-standard-keybindings)
 
-;; (setq rtags-path "/opt/bb/bin")
-(setq flycheck-c/c++-clang-executable "/opt/bb/bin/clang++")
+;;-------------------------------
+;; flycheck related settings
+;;-------------------------------
+;; (setq flycheck-c/c++-clang-executable "/opt/bb/bin/clang++")
+(setq flycheck-c/c++-clang-executable "/usr/local/opt/llvm/bin/clang++")
 (setq flycheck-clang-args '("-m32" "-Dlint" "-D_REENTRANT"
       "-D_THREAD_SAFE" "-DBB_THREADED" "-DBSL_OVERRIDES_STD"))
 
@@ -180,6 +184,9 @@
 ;; http://oremacs.com/2017/04/09/ivy-0.9.0/
 (setq counsel-yank-pop-separator "\n-------------------------------------------------------\n")
 (setq counsel-bookmark-avoid-dired nil)
+
+;; http://oremacs.com/2017/11/30/ivy-0.10.0/
+(setq ivy-use-selectable-prompt t)
 
 (load! toolkit-tramp)
 (require 'toolkit-tramp)
@@ -289,6 +296,7 @@
 
 (defun setup-my-term-mode()
   (setq-local global-hl-line-mode nil)
+  ;; (term-line-mode)
 )
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)

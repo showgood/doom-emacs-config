@@ -1,0 +1,16 @@
+* evil multi edit
+- use visual mode to select text
+- press *R*, it will mark all the matches
+- start edit one match, NOTE, needs to use insert mode to edit, normal mode edit
+  is not reflected to all matches
+* evil multi-cursor
+** one way
+- in normal mode, go to place desired and press *gzz*
+- this will add one extra cursor (along with your actual cursor)
+- repeat this for all the place you want add cursor
+- get into insert mode to start multi-cursor action
+
+** second way
+- select candidate using visual mode
+- press *gzm* and multiple cursors will be created for all the matches
+- get into insert mode to start multi-cursor action

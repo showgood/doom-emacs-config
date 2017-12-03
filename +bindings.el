@@ -823,11 +823,6 @@
 
 (evil-define-key 'normal dired-mode-map (kbd "e") 'ora-ediff-files)
 
-;; (map! :map magit-mode-map
-;;     :m \"C-r\" 'do-something           ; assign C-r in motion state
-;;     :nv \"q\" 'magit-mode-quit-window  ; assign to 'q' in normal and visual states
-;;     \"C-x C-r\" 'a-global-keybind
-
 (evil-define-key 'normal term-raw-map "p" 'term-paste)
 (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
 (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
