@@ -871,7 +871,17 @@
 (evil-define-key 'normal org-mode-map (kbd "<tab>") 'org-cycle
                                       (kbd "<return>") 'org-open-at-point)
 
-(evil-define-key 'normal dired-mode-map (kbd "e") 'ora-ediff-files)
+(evil-define-key 'normal dired-mode-map
+  (kbd "e") 'ora-ediff-files
+  (kbd "SPC q") '+ivy/switch-workspace-buffer
+  (kbd "SPC Q") 'ivy-switch-buffer
+  (kbd "SPC SPC") 'counsel-M-x
+  (kbd "SPC ff")  'counsel-find-file
+  (kbd "SPC ws")  'evil-window-split
+  (kbd "SPC bb")  'persp-switch-to-buffer
+  (kbd "SPC nn")  '+xwu/find-in-notes
+  (kbd "SPC pf")  'counsel-projectile-find-file
+  (kbd "SPC hk")  'describe-key)
 
 (evil-define-key 'normal nxml-mode-map (kbd "SPC xp") 'nxml-where)
 (evil-define-key 'normal json-mode-map (kbd "SPC xp") 'jsons-print-path)
