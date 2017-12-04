@@ -15,7 +15,9 @@
 (ex! "mc"       #'+evil:mc)
 (ex! "iedit"    #'evil-multiedit-ex-match)
 (ex! "na[rrow]" #'+evil:narrow-buffer)
+(ex! "fna[rrow]" #'fancy-narrow-to-region)
 (ex! "wi[den]"  #'widen)
+(ex! "fwi[rrow]" #'fancy-widen)
 (ex! "retab"    #'+evil:retab)
 
 ;; External resources
