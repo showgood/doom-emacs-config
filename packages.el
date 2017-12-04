@@ -11,3 +11,4 @@
 ;; seems have some issue with evil mode
 ;; (package! json-navigator :recipe (:fetcher github :repo "DamienCassou/json-navigator"))
 (package! beacon :recipe (:fetcher github :repo "Malabarba/beacon"))
+(package! google-this :recipe (:fetcher github :repo "Malabarba/emacs-google-this"))

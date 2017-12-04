@@ -333,3 +333,6 @@
 (setq beacon-color "#66cd00")
 (setq beacon-size 50)
 (setq beacon-blink-delay 0.7)
+
+(require 'google-this)
+(google-this-mode 1)
