@@ -8,17 +8,19 @@
 
 ;;; Custom commands
 ;; Editing
-(ex! "@"        #'+evil:macro-on-all-lines)   ; TODO Test me
-(ex! "al[ign]"  #'+evil:align)
-(ex! "enhtml"   #'+web:encode-html-entities)
-(ex! "dehtml"   #'+web:decode-html-entities)
-(ex! "mc"       #'+evil:mc)
-(ex! "iedit"    #'evil-multiedit-ex-match)
-(ex! "na[rrow]" #'+evil:narrow-buffer)
+(ex! "@"         #'+evil:macro-on-all-lines)   ; TODO Test me
+(ex! "al[ign]"   #'+evil:align)
+(ex! "enhtml"    #'+web:encode-html-entities)
+(ex! "dehtml"    #'+web:decode-html-entities)
+(ex! "mc"        #'+evil:mc)
+(ex! "iedit"     #'evil-multiedit-ex-match)
+(ex! "na[rrow]"  #'+evil:narrow-buffer)
 (ex! "fna[rrow]" #'fancy-narrow-to-region)
-(ex! "wi[den]"  #'widen)
+(ex! "wi[den]"   #'widen)
 (ex! "fwi[rrow]" #'fancy-widen)
-(ex! "retab"    #'+evil:retab)
+(ex! "retab"     #'+evil:retab)
+(ex! "a"         #'me/a)
+(ex! "A"         #'me/A)
 
 ;; External resources
 ;; TODO (ex! "db"          #'doom:db)
@@ -43,6 +45,7 @@
 (ex! "gunstage"    #'magit-unstage)
 (ex! "gblame"      #'magit-blame)
 (ex! "grevert"     #'git-gutter:revert-hunk)
+(ex! "gp"          #'magit-push)
 
 ;; Dealing with buffers
 (ex! "clean[up]"   #'doom/cleanup-buffers)

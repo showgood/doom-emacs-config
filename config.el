@@ -60,7 +60,7 @@
 
 ;; settings needed for irony-mode, disabled it since it cause slowness
 ;; (setq irony-server-install-prefix "~/tools/irony-server")
-;; (setq irony-cdb-search-directory-list '("." "src" "build"))
+(setq irony-cdb-search-directory-list '("." "src" "build"))
 ;; (setenv "LD_LIBRARY_PATH" "/opt/bb/lib/llvm-5.0/lib64")
 
 ;; (setq debug-on-error t)
@@ -301,6 +301,8 @@
 
 (defun setup-my-term-mode()
   (setq-local global-hl-line-mode nil)
+  (setq-local beacon-mode nil)
+  (setq term-buffer-maximum-size 0)
   (define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
   (define-key term-raw-map (kbd "C-;") 'evil-normal-state)
 
@@ -310,6 +312,7 @@
   ;; (define-key term-raw-map (kbd "C-y") 'term-paste)
 
   (define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
+  (define-key term-raw-map (kbd "M-v") 'me/paste-in-term-mode)
   ;; NOTE: automatically switch to evil-emacs-state
   ;; after press *p* in normal mode which seems the case most of the time
   (evil-define-key 'normal term-raw-map
@@ -335,3 +338,79 @@
 (setq beacon-blink-delay 0.7)
 
 (require 'fancy-narrow)
+
+;; I want to switch window across frame
+(setq aw-scope 'global)
+
+(evil-add-command-properties #'rtags-find-symbol-at-point :jump t)
+(evil-add-command-properties #'rtags-find-references-at-point :jump t)
+(evil-add-command-properties #'counsel-imenu :jump t)
+
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map
+      [remap completion-at-point] 'counsel-irony)
+  (define-key irony-mode-map
+      [remap complete-symbol] 'counsel-irony))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+
+(add-to-list 'custom-theme-load-path (concat doom-packages-dir "elpa/solarized-theme-20171114.1506"))
+(add-to-list 'custom-theme-load-path (concat doom-packages-dir "elpa/zenburn-theme-20171109.926"))
+(add-to-list 'custom-theme-load-path (concat doom-packages-dir "elpa/color-theme-sanityinc-tomorrow-20171202.1759"))
+(add-to-list 'custom-theme-load-path (concat doom-packages-dir "elpa/monokai-theme-20171013.236"))
+
+(setq multi-term-dedicated-select-after-open-p t)
+
+(require 'hl-anything)
+(hl-highlight-mode)
+
+(require 'evil-ediff)
+(require 'evil-magit)
+(provide 'engine-mode)
+
+(require 'ob-ipython)
+(require 'origami)
+(require 'lentic)
+;; (require 'clean-aident-mode)
+
+;; (require 'clang-format)
+;; (global-set-key (kbd "C-c i") 'clang-format-region)
+;; (global-set-key (kbd "C-c u") 'clang-format-buffer)
+
+;; (setq clang-format-style-option "llvm")
+;; (setq org-ehtml-docroot (expand-file-name "~/org"))
+;; (setq org-ehtml-everything-editable t)
+
+;; (require 'org-ehtml)
+;; (ws-start org-ehtml-handler 8888)
+
+;; @see https://bitbucket.org/lyro/evil/issue/511/let-certain-minor-modes-key-bindings
+(eval-after-load 'git-timemachine
+  '(progn
+     (evil-make-overriding-map git-timemachine-mode-map 'normal)
+     ;; force update evil keymaps after git-timemachine-mode loaded
+     (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps)))
+
+(require 'deft)
+(setq deft-default-extension "org")
+(setq deft-extensions '("org"))
+(setq deft-directory "~/org")
+(setq deft-recursive t)
+(setq deft-use-filename-as-title t)
+(setq deft-use-filter-string-for-filename t)
+(setq deft-file-naming-rules '((noslash . "-")
+                               (nospace . "-")
+                               (case-fn . downcase)))
+(setq deft-text-mode 'org-mode)
+(add-to-list 'evil-emacs-state-modes 'deft-mode)
+
+ ; Proper line wrapping
+(global-visual-line-mode 1)
+
+;; https://2li.ch/home/discovering-emacs-in-2017-part-2
+;; enable the correct intdentation for source code blocks
+(setq org-edit-src-content-indentation 0)
+(setq org-src-tab-acts-natively t)
+(setq org-src-preserve-indentation t)
+
+(setq org-image-actual-width (quote (500)))
+(setq org-startup-with-inline-images t)

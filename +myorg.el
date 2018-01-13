@@ -75,6 +75,7 @@
     (dot . t)
     (C . t)
     (js . t)
+    (ipython . t)
     (emacs-lisp . t)
     (scheme . t)
     ))
@@ -208,3 +209,6 @@
 (defun org-bbg-open (link)
   "Launch the Bloomberg Terminal with the given function"
   (browse-url (concat "bbg://screens/" link)))
+
+;;; display/update images in the buffer after I evaluate
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)

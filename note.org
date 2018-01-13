@@ -59,3 +59,8 @@ in visual mode, *gr* will evaulate the region
 * quickly toggle between two windows with ace-window
 https://oremacs.com/2015/03/06/ace-window-toggle/
 basically use *SPC w w n*
+* put sth surround by function call
+use *evil-surround* package
+- select text in visual mode
+- press *Sf*
+- enter function name in mini-buffer

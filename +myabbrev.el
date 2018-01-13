@@ -14,6 +14,7 @@
   ("inlcude" "include")
   ("ustd" "using namespace std;")
   ("td" "TODO:")
+  ("fxm" "FIXME:")
 
   ;; emacs regex
   ("8d" "\\([0-9]+?\\)")

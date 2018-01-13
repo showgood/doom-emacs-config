@@ -1,19 +1,23 @@
 * ✔ DONE disable hl-line-mode in terminal buffer
 * ☛ TODO make all commands with spc prefix work in dired buffer
+  (with-eval-after-load 'dired
+    (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
+    (define-key dired-mode-map "j" 'spacemacs/helm-find-files)
+    (evil-define-key 'normal dired-mode-map (kbd dotspacemacs-leader-key)
+      spacemacs-default-map))
+      
+(defvar spacemacs-default-map (make-sparse-keymap)
+
+
+(put ':leader       'lisp-indent-function 'defun)
+
+— Function: put symbol property value
+
+ (put 'fly 'verb 'transitive)
+
+
 * ✔ DONE make term-mode play nicely with evil-mode
 * ☛ TODO enable C-y for term-paste in term-mode
-* ☛ TODO better experience with jump mark
-basically we need to call *evil-scroll-line-to-center*
-so the jumping location is always in the center of screen,
-not at top or bottom
-
-first try:
-#+BEGIN_SRC elisp
-(defadvice evil-goto-mark-line (after evil-scroll-line-to-center activate)
-  (interactive)
-)
-#+END_SRC
-not working..
 * ☛ TODO enable hjkl navigation in magit buffer
 * ☛ TODO change ediff colorscheme for better visual effect when diff
 currently it's really hard to see the difference
@@ -23,3 +27,17 @@ https://writequit.org/articles/working-with-logs-in-emacs.html
 
 https://github.com/DamienCassou/json-navigator
 https://github.com/Sterlingg/json-snatcher
+* ✔ DONE C-o not work after jump with rtags
+#+BEGIN_SRC elisp
+(evil-add-command-properties #'rtags-find-symbol-at-point :jump t)
+(evil-add-command-properties #'rtags-find-references-at-point :jump t)
+#+END_SRC
+* ☛ TODO add keybinding for paste in term-mode (emacs state)
+* ✔ DONE ace-window not work for multiple frame
+do this:
+#+BEGIN_SRC elisp
+(setq aw-scope 'global)
+#+END_SRC
+* ☛ TODO integrate evil-magit
+* ☛ TODO M-y doesn't work in minibuffer
+* ✔ DONE add key-bindings for hl-anything

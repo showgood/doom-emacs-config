@@ -22,15 +22,18 @@
  ;; TODO: conflict with term-mode
  :nvime "C-y" #'yank
 
- :vime "M-SPC" #'+company/complete
- :vime "M-/" #'dabbrev-expand
+ :vime "M-SPC"  #'+company/complete
+ :vime "M-/"    #'dabbrev-expand
  :nvime "<f12>" #'org-todo
  :nvime "<f11>" #'org-agenda
  :nvime "<f10>" #'org-capture
- :nvime "<f2>" #'org-clock-goto
- :nvime "<f3>" #'org-clock-in
- :nvime "<f4>" #'org-clock-out
- :nvime "<f6>" #'rtags-find-symbol-at-point
+ :nvime "<f2>"  #'org-clock-goto
+ :nvime "<f3>"  #'org-clock-in
+ :nvime "<f4>"  #'org-clock-out
+ ;; :nvime "<f6>"  #'rtags-find-symbol-at-point
+ :nvime "<f6> a"  #'bb/arm-report-status
+ :nvime "<f6> r"  #'bb/report-status
+ :nvime "C-;"   #'evil-normal-state
 
 :nvime "<f5> a" #'org-archive-subtree
 :nvime "<f5> c" #'calendar
@@ -48,7 +51,7 @@
 :nvime "<f7> o" #'projectile-find-file-dwim-other-window
 :nvime "<f7> s" #'counsel-rg
 
-:nvime "<f8> c" #'eacl-complete-line
+:nvime "<f8> c" #'counsel-git-grep-complete-line
 
 :nvime "<f9> c" #'cp-filename-of-current-buffer
 ;; copy current line
@@ -307,17 +310,17 @@
      :desc "Next hunk"         :nv "]" #'git-gutter:next-hunk
      :desc "Previous hunk"     :nv "[" #'git-gutter:previous-hunk)
 
-   (:desc "help" :prefix "h"
-     :n "h" help-map
+   (:desc "help / highlight" :prefix "h"
+                                   :n "h" help-map
      :desc "Apropos"               :n "a" #'apropos
      :desc "Reload theme"          :n "R" #'doom/reload-theme
-     :desc "Find library"          :n "l" #'find-library
-     :desc "Toggle Emacs log"      :n "m" #'doom/popup-toggle-messages
-     :desc "Command log"           :n "L" #'global-command-log-mode
+     ;; :desc "Find library"       :n "l" #'find-library
+     ;; :desc "Command log"        :n "L" #'global-command-log-mode
+     :desc "Toggle Emacs log"      :n "M" #'doom/popup-toggle-messages
+     :desc "Describe mode"         :n "m" #'describe-mode
      :desc "Describe function"     :n "f" #'describe-function
      :desc "Describe key"          :n "k" #'describe-key
      :desc "Describe char"         :n "c" #'describe-char
-     :desc "Describe mode"         :n "M" #'describe-mode
      :desc "Describe variable"     :n "v" #'describe-variable
      :desc "Describe face"         :n "F" #'describe-face
      :desc "Describe DOOM setting" :n "s" #'doom/describe-setting
@@ -328,6 +331,12 @@
      :desc "What face"             :n "'" #'doom/what-face
      :desc "What minor modes"      :n ";" #'doom/what-minor-mode
      :desc "Info"                  :n "i" #'info
+     :desc "prev highlight "       :n "N" #'hl-find-prev-thing
+     :desc "next highlight "       :n "n" #'hl-find-next-thing
+     :desc "highlight global"      :n "L" #'hl-highlight-thingatpt-global
+     :desc "un highlight global"   :n "U" #'hl-unhighlight-all-global
+     :desc "highlight local"       :n "l" #'hl-highlight-thingatpt-local
+     :desc "un highlight local"    :n "u" #'hl-unhighlight-all-local
      :desc "Toggle profiler"       :n "p" #'doom/toggle-profiler)
 
    (:desc "insert" :prefix "i"
@@ -377,23 +386,26 @@
      :desc "Pop term in project"     :n  "o" #'+term/open-popup-in-project
      :desc "Invalidate cache"        :n  "x" #'projectile-invalidate-cache)
 
-   (:desc "snippets" :prefix "s"
+   (:desc "snippets / switch" :prefix "s"
      :desc "New snippet"           :n  "n" #'yas-new-snippet
      :desc "Insert snippet"        :nv "i" #'yas-insert-snippet
      :desc "Find snippet for mode" :n  "s" #'yas-visit-snippet-file
-     :desc "Find snippet"          :n  "S" #'+hlissner/find-in-snippets)
+     :desc "Find snippet"          :n  "S" #'+hlissner/find-in-snippets
+     :desc "switch to nylx"        :n  "n" #'bb/nylx
+     :desc "switch to trsl"        :n  "t" #'bb/trsl)
 
    (:desc "toggle" :prefix "t"
-     :desc "Flyspell"               :n "s" #'flyspell-mode
-     :desc "Flycheck"               :n "f" #'flycheck-mode
-     :desc "Line numbers"           :n "l" #'doom/toggle-line-numbers
+     :desc "Flyspell"                 :n "s" #'flyspell-mode
+     :desc "Flycheck"                 :n "f" #'flycheck-mode
+     :desc "Line numbers"             :n "l" #'doom/toggle-line-numbers
+     :desc "multi term toggle"        :n "t" #'multi-term-dedicated-toggle
      ;; fci-mode seems have performance issue
-     ;; :desc "Fill column indicator"  :n "f" #'fci-mode
-     :desc "Indent guides"          :n "i" #'highlight-indentation-mode
-     :desc "Indent guides (column)" :n "I" #'highlight-indentation-current-column-mode
-     :desc "Impatient mode"         :n "h" #'+impatient-mode/toggle
-     :desc "Big mode"               :n "b" #'doom-big-font-mode
-     :desc "Evil goggles"           :n "g" #'+evil-goggles/toggle))
+     ;; :desc "Fill column indicator" :n "f" #'fci-mode
+     :desc "Indent guides"            :n "i" #'highlight-indentation-mode
+     :desc "Indent guides (column)"   :n "I" #'highlight-indentation-current-column-mode
+     :desc "Impatient mode"           :n "h" #'+impatient-mode/toggle
+     :desc "Big mode"                 :n "b" #'doom-big-font-mode
+     :desc "Evil goggles"             :n "g" #'+evil-goggles/toggle))
 
  ;; --- Personal vim-esque bindings ------------------
  :n  "zx" #'doom/kill-this-buffer
@@ -423,7 +435,9 @@
 
  ;; ----------- rtags bindings ----------------------
  (:prefix ","
-   :n "d" #'rtags-find-symbol-at-point
+   :n "d" #'deft
+   :n "f" #'deft-find-file
+   :n "s" #'rtags-find-symbol-at-point
    :n "r" #'rtags-find-references-at-point)
 
  (:map evil-window-map ; prefix "C-w"
@@ -881,10 +895,13 @@
   (kbd "SPC bb")  'persp-switch-to-buffer
   (kbd "SPC nn")  '+xwu/find-in-notes
   (kbd "SPC pf")  'counsel-projectile-find-file
-  (kbd "SPC hk")  'describe-key)
+  (kbd "SPC hk")  'describe-key
+  (kbd "SPC ll")  '+workspace/switch-to)
 
 (evil-define-key 'normal nxml-mode-map (kbd "SPC xp") 'nxml-where)
 (evil-define-key 'normal json-mode-map (kbd "SPC xp") 'jsons-print-path)
+(define-key ivy-minibuffer-map (kbd "M-y") 'counsel-yank-pop)
+(define-key evil-ex-map "\M-y" #'counsel-yank-pop)
 
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
