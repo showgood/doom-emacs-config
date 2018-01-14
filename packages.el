@@ -1,27 +1,20 @@
 ;; -*- no-byte-compile: t; -*-
 
 (package! rtags)
-(package! bookmark+ :recipe (:fetcher github :repo "emacsmirror/bookmark-plus"))
-(package! eacl :recipe (:fetcher github :repo "redguardtoo/eacl"))
-(package! dired+ :recipe (:fetcher github :repo "emacsmirror/dired-plus"))
-(package! vlfi :recipe (:fetcher github :repo "m00natic/vlfi"))
-(package! dash-at-point :recipe (:fetcher github :repo "stanaka/dash-at-point"))
-(package! json-snatcher :recipe (:fetcher github :repo "Sterlingg/json-snatcher"))
-(package! logview :recipe (:fetcher github :repo "doublep/logview"))
-(package! beacon :recipe (:fetcher github :repo "Malabarba/beacon"))
-(package! fancy-narrow :recipe (:fetcher github :repo "Malabarba/fancy-narrow"))
-(package! solarized-theme)
-(package! color-theme-sanityinc-tomorrow)
-(package! zenburn-theme)
-(package! monokai-theme)
-
-(package! evil-magit :recipe (:fetcher github :repo "emacs-evil/evil-magit"))
-(package! evil-ediff :recipe (:fetcher github :repo "emacs-evil/evil-ediff"))
-(package! hl-anything :recipe (:fetcher github :repo "hl-anything/hl-anything-emacs"))
-(package! engine-mode :recipe (:fetcher github :repo "hrs/engine-mode"))
-(package! evil-replace-with-register :recipe (:fetcher github :repo "Dewdrops/evil-ReplaceWithRegister"))
-;; (package! clang-format :recipe (:fetcher github :repo "sonatard/clang-format"))
-
+(package! bookmark+)
+(package! dired+)
+(package! vlf)
+(package! engine-mode)
+(package! eacl)
+(package! beacon)
+(package! fancy-narrow)
+(package! dash-at-point)
+(package! json-snatcher)
+(package! evil-magit)
+(package! evil-ediff)
+(package! hl-anything)
+(package! evil-replace-with-register)
+(package! logview)
 (package! ob-ipython)
 (package! origami)
 (package! lentic)
@@ -34,12 +27,17 @@
 (package! evil-visual-mark-mode)
 (package! auto-yasnippet)
 (package! wand)
-
 (package! deft)
+(package! org-attach-screenshot)
+(package! suggest)
+(package! interleave)
+(package! counsel-etags)
+(package! counsel-dash)
 
-;; https://github.com/phillord/lentic
-;; https://github.com/wasamasa/nov.el
-
+;; (package! solarized-theme)
+;; (package! color-theme-sanityinc-tomorrow)
+;; (package! zenburn-theme)
+;; (package! monokai-theme)
 ;; https://github.com/bmag/emacs-purpose
 
 ;; https://github.com/proofit404/anaconda-mode
