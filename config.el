@@ -1,3 +1,4 @@
+(require 'counsel)
 ;; I don't need linenum most of the time
 ;; hopefully can speed up a bit for large file
 (setq doom-line-numbers-style nil)
@@ -5,7 +6,6 @@
 (load! +bindings)  ; my key bindings
 (load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
-(load! +bb)  ; bb specific
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
 
