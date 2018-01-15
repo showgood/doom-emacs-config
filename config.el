@@ -66,7 +66,7 @@
 (require 'vlf)
 (require 'vlf-setup)
 
-(setq +org-dir (concat (substitute-in-file-name "$home/") "org"))
+(setq +org-dir (concat (substitute-in-file-name "$HOME/") "org"))
 
 (defvar +xwu-dir (file-name-directory load-file-name))
 (defvar +xwu-snippets-dir (expand-file-name "snippets/" +xwu-dir))
@@ -112,8 +112,8 @@
 ;; fix the error that bmkp-info-cp is void
 ;; (defalias 'bmkp-info-cp 'bmkp-info-node-name-cp)
 
-(setq bookmark-default-file (concat (substitute-in-file-name "$home/") "bookmarks"))
-(setq bookmark-file (concat (substitute-in-file-name "$home/") "bookmarks"))
+(setq bookmark-default-file (concat (substitute-in-file-name "$HOME/") "bookmarks"))
+(setq bookmark-file (concat (substitute-in-file-name "$HOME/") "bookmarks"))
 ;; ==== end bookmark settings }}} ====
 
 ;; settings needed for irony-mode, disabled it since it cause slowness
@@ -124,13 +124,13 @@
 ;; ==== world clock {{{ ====
 ;; https://en.wikipedia.org/wiki/list_of_tz_database_time_zones
 (setq display-time-world-list
-        '(("america/new_york" "new york")
-          ("asia/shanghai" "shanghai")
-          ("australia/sydney" "sydney")
-          ("europe/london" "london")
-          ("europe/berlin" "germany")
-          ("europe/rome" "italy")
-          ("europe/paris" "paris")))
+        '(("America/New_York" "New York")
+          ("Asia/Shanghai" "Shanghai")
+          ("Australia/Sydney" "Sydney")
+          ("Europe/London" "London")
+          ("Europe/Berlin" "Germany")
+          ("Europe/Rome" "Italy")
+          ("Europe/Paris" "Paris")))
 
 ;; quick way to dispaly world time clock
 (defalias 'wc 'display-time-world)
@@ -142,7 +142,7 @@
 ;; rtags related settings
 ;;-------------------------------
 (require 'rtags)
-(setq rtags-socket-file (concat (substitute-in-file-name "$home/") ".rdm"))
+(setq rtags-socket-file (concat (substitute-in-file-name "$HOME/") ".rdm"))
 ;; (setq rtags-path "/opt/bb/bin")
 ;; (setq rtags-completions-enabled t)
 
@@ -162,8 +162,8 @@
 ;; ==== flycheck settings {{{ ====
 ;; (setq flycheck-c/c++-clang-executable "/opt/bb/bin/clang++")
 (setq flycheck-c/c++-clang-executable "/usr/local/opt/llvm/bin/clang++")
-(setq flycheck-clang-args '("-m32" "-dlint" "-d_reentrant"
-      "-d_thread_safe" "-dbb_threaded" "-dbsl_overrides_std"))
+(setq flycheck-clang-args '("-m32" "-Dlint" "-D_REENTRANT"
+      "-D_THREAD_SAFE" "-DBB_THREADED" "-DBSL_OVERRIDES_STD"))
 
 ;; (defun my-flycheck-setup ()
 ;;   (flycheck-select-checker 'c/c++-clang))
@@ -445,6 +445,7 @@
 (require 'interleave)
 
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
+(require 'pdf-occur)
 (require 'pdf-tools)
 (pdf-tools-install)
 
