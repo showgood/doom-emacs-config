@@ -112,8 +112,6 @@
 ;; fix the error that bmkp-info-cp is void
 ;; (defalias 'bmkp-info-cp 'bmkp-info-node-name-cp)
 
-(setq bookmark-default-file (concat (substitute-in-file-name "$HOME/") "bookmarks"))
-(setq bookmark-file (concat (substitute-in-file-name "$HOME/") "bookmarks"))
 ;; ==== end bookmark settings }}} ====
 
 ;; settings needed for irony-mode, disabled it since it cause slowness
