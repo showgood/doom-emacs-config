@@ -8,7 +8,7 @@
 
 (setq org-startup-indented t)
 (setq org-startup-with-inline-images t)
-(setq org-image-actual-width (quote (500)))
+;; (setq org-image-actual-width (quote (500)))
 
 ;; always use relative path link, very important
 ;; https://emacs.stackexchange.com/questions/16652/change-the-behavior-of-org-mode-auto-expand-relative-path-in-link

@@ -439,7 +439,12 @@
 
 (setq org-attach-screenshot-command-line
       "screencapture -i %f")
+
+(setq org-attach-screenshot-dirfunction
+		(lambda ()
+		  (concat +org-dir "/files/")))
 ;; ==== END smooth workflow for capturing screenshot into org-mode }}} ====
+
 (require 'interleave)
 
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
