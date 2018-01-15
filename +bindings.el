@@ -1,3 +1,5 @@
+;; -*- origami-fold-style: triple-braces -*-
+
 (defmacro find-file-in! (path &optional project-p)
   "Returns an interactive function for searching files."
   `(lambda () (interactive)
@@ -15,6 +17,7 @@
  :nmvo doom-leader-key nil
  :nmvo doom-localleader-key nil)
 
+;;; ==== Global keybindings {{{ ====
 (map!
  ;; --- Global keybindings ---------------------------
  ;; very important to me, smoothier workflow
@@ -758,6 +761,8 @@
    :n "[["  #'vc-annotate-prev-revision
    :n "TAB" #'vc-annotate-toggle-annotation-visibility
    :n "RET" #'vc-annotate-find-revision-at-line))
+
+;;; ==== END Global keybindings }}} ====
 
 ;; --- Custom key functionality ---------------------
 (defmacro do-repeat! (command next-func prev-func)

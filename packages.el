@@ -20,7 +20,6 @@
 (package! lentic)
 (package! clean-aindent-mode)
 (package! nov)
-(package! org-ehtml)
 (package! imenu-anywhere)
 (package! move-text)
 (package! pcre2el)
@@ -33,6 +32,11 @@
 (package! interleave)
 (package! counsel-etags)
 (package! counsel-dash)
+(package! ox-gfm)
+(package! pdf-tools)
+(package! interleave)
+
+(package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 
 ;; (package! solarized-theme)
 ;; (package! color-theme-sanityinc-tomorrow)
@@ -60,3 +64,10 @@
 ;; not quite working for me, ob-ipython seems better
 ;; https://github.com/millejoh/emacs-ipython-notebook
 ;; (package! ein)
+
+;; this does not work..
+;;(package! org-ehtml)
+
+;; couldn't get it installed on emacs 26
+;; (package! org-preview-html)
+;; (package! org-preview-html :recipe (:fetcher github :repo "lujun9972/org-preview-html"))
