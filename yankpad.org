@@ -1,0 +1,15 @@
+* source blocks
+** elisp
+#+begin_src elisp
+$0
+#+end_src
+** ip: ipython
+#+BEGIN_SRC ipython :session :exports both :results raw drawer
+  $0
+#+END_SRC
+** plt: matplotlib
+#+BEGIN_SRC ipython :session :results raw drawer
+  %matplotlib inline
+  import matplotlib.pyplot as plt
+  import numpy as np
+#+END_SRC

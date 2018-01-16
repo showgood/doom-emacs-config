@@ -35,8 +35,10 @@
 (package! ox-gfm)
 (package! pdf-tools)
 (package! interleave)
+(package! yankpad)
 
-(package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
+
+;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 
 ;; (package! solarized-theme)
 ;; (package! color-theme-sanityinc-tomorrow)

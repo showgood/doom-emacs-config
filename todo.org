@@ -15,10 +15,9 @@
 
  (put 'fly 'verb 'transitive)
 
-
 * ✔ DONE make term-mode play nicely with evil-mode
 * ☛ TODO enable C-y for term-paste in term-mode
-* ☛ TODO enable hjkl navigation in magit buffer
+* ✔ DONE enable hjkl navigation in magit buffer
 * ☛ TODO change ediff colorscheme for better visual effect when diff
 currently it's really hard to see the difference
 * major mode for viewing log file
@@ -38,6 +37,36 @@ do this:
 #+BEGIN_SRC elisp
 (setq aw-scope 'global)
 #+END_SRC
-* ☛ TODO integrate evil-magit
+* ✔ DONE integrate evil-magit
 * ☛ TODO M-y doesn't work in minibuffer
 * ✔ DONE add key-bindings for hl-anything
+* ☛ TODO integrate org-super-agenda
+https://github.com/alphapapa/org-super-agenda
+
+* ☛ TODO integrate pocket-reader
+https://github.com/alphapapa/pocket-reader.el
+
+* ☛ TODO integrate anki-editor
+https://github.com/louietan/anki-editor
+
+* ☛ TODO integrate org-sticky-header
+https://github.com/alphapapa/org-sticky-header
+
+* ☛ TODO integrate  org-table-sticky-header
+https://github.com/cute-jumper/org-table-sticky-header
+
+* integrate  org-reveal
+https://github.com/yjwen/org-reveal
+
+* integrate lsp-mode and cquery
+https://github.com/emacs-lsp/lsp-mode
+https://github.com/cquery-project/emacs-cquery
+
+* integrate dired-sidebar
+https://github.com/jojojames/dired-sidebar
+
+* integrate evil-collection
+https://github.com/jojojames/evil-collection
+
+* ☛ TODO integrate yankpad
+https://github.com/Kungsgeten/yankpad

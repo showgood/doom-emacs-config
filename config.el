@@ -447,6 +447,9 @@
 
 (require 'interleave)
 
+(require 'yankpad)
+(setq yankpad-file (concat +xwu-dir "yankpad.org"))
+
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
 (require 'pdf-tools)
