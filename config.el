@@ -454,4 +454,3 @@
 (require 'pdf-occur)
 (require 'pdf-tools)
 (pdf-tools-install)
-

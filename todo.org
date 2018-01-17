@@ -70,3 +70,7 @@ https://github.com/jojojames/evil-collection
 
 * ☛ TODO integrate yankpad
 https://github.com/Kungsgeten/yankpad
+* ✔ DONE create org table from clipboard
+:LOGBOOK:
+CLOCK: [2018-01-16 Tue 20:04]--[2018-01-16 Tue 22:12] =>  2:08
+:END:

@@ -1,5 +1,3 @@
-;;; private/xwu157/autoload/+funcs.el -*- lexical-binding: t; -*-
-
 ;;;###autoload
 ;; from AbcDef ==> Abc_Def
 (defun split-name (s)
@@ -408,3 +406,19 @@ path. from http://www.emacswiki.org/emacs/NxmlMode"
     ;; (setq val (replace-regexp-in-string ".*;" "" val))
     (kill-new val)
 (message "%s => kill-ring" val))))
+
+;;;###autoload
+(defun me/create-org-table-from-clipboard ()
+  (interactive)
+  (let* ((buf (current-buffer)))
+    (with-temp-buffer
+      (switch-to-buffer (current-buffer) nil t)
+      (insert (get-kill-ring))
+      (mark-whole-buffer)
+      (org-table-create-or-convert-from-region nil)
+      (org-table-insert-hline)
+      (goto-char (point-min))
+      (open-line 1)
+      (insert "#+tblname:")
+      (append-to-buffer buf (point-min) (point-max))
+      )))
