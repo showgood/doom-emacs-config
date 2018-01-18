@@ -13,7 +13,7 @@
   ("namepsace" "namespace")
   ("inlcude" "include")
   ("ustd" "using namespace std;")
-  ("td" "TODO:")
+  ;; ("td" "TODO:")
   ("fxm" "FIXME:")
 
   ;; emacs regex

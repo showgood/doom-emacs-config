@@ -1,5 +1,5 @@
-* source blocks
-** elisp
+* org-mode
+** <l: elisp
 #+begin_src elisp
 $0
 #+end_src
@@ -13,3 +13,93 @@ $0
   import matplotlib.pyplot as plt
   import numpy as np
 #+END_SRC
+** dt: dot
+#+begin_src dot :file ${1:file} :cmdline -T${2:pdf} :exports none :results silent
+            $0
+#+end_src
+
+[[file:$1]]
+** td: TODO
+\* ☛ TODO ${1:`(get-kill-ring)`}
+** hd: org-file header
+#+TITLE:     ${1:Untitled Document}
+#+AUTHOR:    showgood
+#+EMAIL:     showgood21@gmail.com
+** verse: verse
+#+begin_verse
+        $0
+#+end_verse
+
+* c++
+** <i: #include <xyz.h>
+#include <${1:`(get-kill-ring)`}>$0
+** main: int main()
+int main(${1:int argc, char *argv[]})
+{
+    $0
+    return 0;
+}
+** class
+class ${1:Name} {
+    public:
+        ${1:$(yas/substr yas-text "[^: ]*")}();
+        ${2:virtual ~${1:$(yas/substr yas-text "[^: ]*")}();}
+    $0
+};
+
+** ct:  constructor
+${1:Class}::$1(${2:args})
+    ${3: : ${4:init}}
+{
+    $0
+}
+
+** cout: cout
+`(setq --cpp-ns (if (search "using namespace std;" (buffer-string)) "" "std::"))
+--cpp-ns`cout << ${1:string} << `--cpp-ns`endl;`(progn (makunbound '--cpp-ns) "")`
+** <<: operator <<
+friend std::ostream& operator<<(std::ostream&, const ${1:Class}&);
+** operator []
+${1:Type}& operator[](${2:int index});
+** for: for (iter=begin; iter != end; ++iter)
+for (${1:iter}=${2:var}.begin(); $1!=$2.end(); ++$1)
+{
+    $0
+}
+** fori: for (int i=0; i < N; i)                              :indent_fixed:
+for (${1:i = 0}; ${2:i < N}; ${3:i++})
+{
+    $0
+}
+** i64: bsls::Types::Int64
+bsls::Types::Int64 ${1:variable} = $2;
+$0
+** logc: BAEL_LOG_SET_CATEGORY
+BAEL_LOG_SET_CATEGORY("${1:class::method}");
+$0
+** map: std::map
+std::map<${1:type1}$0> ${2:var};
+** ns: namespace
+namespace ${1:Namespace} {
+    `yas/selected-text`
+}
+** try: try catch
+try
+{
+    `%`$0
+}
+catch (${1:type})
+{
+}
+** warn: BAEL_LOG_WARN
+BAEL_LOG_WARN << "${1:warning here}" << BAEL_LOG_END;
+** err: BAEL_LOG_ERROR
+BAEL_LOG_ERROR << "${1:error here}" << BAEL_LOG_END;
+** func: test func                                                 :results:
+#+BEGIN_SRC ipython :session :exports both :results output raw drawer
+print 'hello world'
+#+END_SRC
+* master category
+:PROPERTIES:
+:INCLUDE:  org-mode|c++
+:END:
