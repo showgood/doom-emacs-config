@@ -445,6 +445,7 @@
    :n "te" #'yas-expand
    :n "yc" #'yankpad-set-category
    :n "ye" #'yankpad-edit
+   :n "yt" #'yankpad-expand
    :n "yi" #'yankpad-insert
    :n "yr" #'yankpad-reload
    )
@@ -477,7 +478,7 @@
  :nv [C-tab] #'aya-create
 
  ;; yankpad
- :i [tab] #'yankpad-expand
+ ;; :i [tab] #'yankpad-expand
  ;; :n
 
  ;; company-mode (vim-like omnicompletion)
@@ -707,19 +708,19 @@
  :v "C-r" #'undo-tree-redo
 
  ;; yasnippet
-;; (:after yasnippet
-;;   (:map yas-keymap
-;;     "C-e"           #'+snippets/goto-end-of-field
-;;     "C-a"           #'+snippets/goto-start-of-field
-;;     "<M-right>"     #'+snippets/goto-end-of-field
-;;     "<M-left>"      #'+snippets/goto-start-of-field
-;;     "<M-backspace>" #'+snippets/delete-to-start-of-field
-;;     [escape]        #'evil-normal-state
-;;     [backspace]     #'+snippets/delete-backward-char
-;;     [delete]        #'+snippets/delete-forward-char-or-field)
-;;   (:map yas-minor-mode-map
-;;     :i "<tab>" yas-maybe-expand
-     ;; :v "<tab>" #'+snippets/expand-on-region))
+(:after yasnippet
+  (:map yas-keymap
+    "C-e"           #'+snippets/goto-end-of-field
+    "C-a"           #'+snippets/goto-start-of-field
+    "<M-right>"     #'+snippets/goto-end-of-field
+    "<M-left>"      #'+snippets/goto-start-of-field
+    "<M-backspace>" #'+snippets/delete-to-start-of-field
+    [escape]        #'evil-normal-state
+    [backspace]     #'+snippets/delete-backward-char
+    [delete]        #'+snippets/delete-forward-char-or-field)
+  (:map yas-minor-mode-map
+    :i "<tab>" yas-maybe-expand
+     :v "<tab>" #'+snippets/expand-on-region))
 
 
  ;; --- Major mode bindings --------------------------

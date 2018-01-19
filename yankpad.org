@@ -30,6 +30,30 @@ $0
         $0
 #+end_verse
 
+** =: formula
+$1 = ${1:$(calc-eval
+   (replace-regexp-in-string "p" "perm"
+                 (replace-regexp-in-string "c" "choose"
+                                   yas-text)))}$0
+** epoch: datetimetz -> epoch time
+`(calc-eval "unixtime(now(0))")`
+** poche: epoch time -> datetimetz
+`(let ((cmd (format "unixtime(%s)" (get-kill-ring)))) (calc-eval cmd))`
+** time: current time string
+`(current-time-string)`
+** oz: oz ->g unit convert
+| oz       | g   |
+|----------+-----|
+| ${1:1}oz | g$0 |
+|----------+-----|
+#+TBLFM: \$2='(calc-eval (math-convert-units (calc-eval \$1 'raw) (calc-eval "g" 'raw)))
+
+** lb: lb ->g unit convert
+| lb       | g   |
+|----------+-----|
+| ${1:1}lb | g$0 |
+|----------+-----|
+#+TBLFM: \$2='(calc-eval (math-convert-units (calc-eval \$1 'raw) (calc-eval "g" 'raw)))
 * c++
 ** <i: #include <xyz.h>
 #include <${1:`(get-kill-ring)`}>$0
