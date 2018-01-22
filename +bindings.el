@@ -926,6 +926,14 @@
 (define-key ivy-minibuffer-map (kbd "M-y") 'counsel-yank-pop)
 (define-key evil-ex-map "\M-y" #'counsel-yank-pop)
 
+(evil-define-key 'normal elpy-mode-map
+  (kbd ",d") 'elpy-goto-definition
+  (kbd ",D") 'elpy-doc
+  (kbd ",r") 'xref-find-references
+  (kbd ",m") 'elpy-multiedit
+  (kbd ",f") 'elpy-format-code
+  (kbd ",M") 'elpy-multiedit-stop)
+
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
 

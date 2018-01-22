@@ -69,7 +69,7 @@
 (setq python-shell-interpreter "jupyter"
       python-shell-interpreter-args "console --simple-prompt")
 
-(setq elpy-rpc-python-command "/Users/showgood/anaconda2/bin/python")
+(setq elpy-rpc-python-command "~/anaconda2/bin/python")
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
