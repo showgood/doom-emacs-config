@@ -306,7 +306,7 @@
    (:desc "git" :prefix "g"
      :desc "Git status"        :n  "s" #'magit-status
      :desc "Git blame"         :n  "b" #'magit-blame
-     :desc "Git time machine"  :n  "t" #'git-timemachine-toggle
+     :desc "Git time machine"  :n  "t" #'my-git-timemachine
      :desc "Git revert hunk"   :n  "r" #'git-gutter:revert-hunk
      :desc "Git revert buffer" :n  "R" #'vc-revert
      :desc "List gists"        :n  "g" #'+gist:list
@@ -351,6 +351,8 @@
      :desc "Browse notes"          :n "N" #'+xwu/browse-notes
      :desc "Org capture"           :n "x" #'+org-capture/open
      :desc "Browse mode notes"     :n "m" #'+org/browse-notes-for-major-mode
+     :desc "Find file in docs"     :n "d" #'+xwu/find-in-docs
+     :desc "Browse docs"           :n "D" #'+xwu/browse-docs
      :desc "Browse project notes"  :n "p" #'+org/browse-notes-for-project)
 
    ;;(:desc "open" :prefix "o"
@@ -442,12 +444,18 @@
    :n "f" #'deft-find-file
    :n "s" #'rtags-find-symbol-at-point
    :n "r" #'rtags-find-references-at-point
-   :n "te" #'yas-expand
    :n "yc" #'yankpad-set-category
    :n "ye" #'yankpad-edit
    :n "yt" #'yankpad-expand
    :n "yi" #'yankpad-insert
    :n "yr" #'yankpad-reload
+   :n "zt" #'origami-toggle-all-nodes
+   :n "zO" #'origami-open-node-recursively
+   :n "zo" #'origami-open-node
+   :n "zc" #'origami-close-node
+   :n "zC" #'origami-close-node-recursively
+   :n "zm" #'origami-close-all-nodes
+   :n "za" #'origami-open-all-nodes
    )
 
  (:map evil-window-map ; prefix "C-w"
@@ -720,8 +728,7 @@
     [delete]        #'+snippets/delete-forward-char-or-field)
   (:map yas-minor-mode-map
     :i "<tab>" yas-maybe-expand
-     :v "<tab>" #'+snippets/expand-on-region))
-
+    :v "<tab>" #'+snippets/expand-on-region))
 
  ;; --- Major mode bindings --------------------------
  (:after markdown-mode

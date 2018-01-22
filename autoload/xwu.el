@@ -42,3 +42,7 @@ private/user-login-name/snippets."
 ;;;###autoload (autoload '+xwu/find-in-notes (format "private/%s/autoload/xwu" user-login-name) nil t)
 ;;;###autoload (autoload '+xwu/browse-notes (format "private/%s/autoload/xwu" user-login-name) nil t)
 (+hlissner-def-finder! notes +org-dir)
+
+;;;###autoload (autoload '+xwu/find-in-docs (format "private/%s/autoload/xwu" user-login-name) nil t)
+;;;###autoload (autoload '+xwu/browse-docs (format "private/%s/autoload/xwu" user-login-name) nil t)
+(+hlissner-def-finder! docs (expand-file-name "docs" "~"))

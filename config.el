@@ -63,6 +63,19 @@
 
 ;; ==== END frequently used packages }}} ====
 
+;; ==== elpy settings {{{ ====
+(require 'elpy)
+(elpy-enable)
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt")
+
+(setq elpy-rpc-python-command "/Users/showgood/anaconda2/bin/python")
+
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; ==== END elpy settings }}} ====
+
 (require 'vlf)
 (require 'vlf-setup)
 
@@ -136,19 +149,12 @@
 
 (require 'eacl)
 
-;;-------------------------------
-;; rtags related settings
-;;-------------------------------
+;; ==== rtags settings {{{ ====
 (require 'rtags)
 (setq rtags-socket-file (concat (substitute-in-file-name "$HOME/") ".rdm"))
 ;; (setq rtags-path "/opt/bb/bin")
 ;; (setq rtags-completions-enabled t)
 
-;; show autocomplete popup, disable by default
-;; disable it since it's too slow
-(require 'company)
-(setq company-idle-delay 0.2
-      company-minimum-prefix-length 3)
 
 ;; (require 'company-rtags)
 ;; (eval-after-load 'company
@@ -156,6 +162,7 @@
 ;;     'company-backends 'company-rtags))
 ;; (setq rtags-autostart-diagnostics t)
 ;; (rtags-enable-standard-keybindings)
+;; ==== END rtags settings }}} ====
 
 ;; ==== flycheck settings {{{ ====
 ;; (setq flycheck-c/c++-clang-executable "/opt/bb/bin/clang++")
@@ -381,6 +388,17 @@
 (setq beacon-blink-delay 0.7)
 ;; ==== end beacon settings }}} ====
 
+;; ==== auto-complete settings {{{ ====
+;; disable it if it's too slow
+(require 'company)
+(setq company-idle-delay 0.1
+      company-minimum-prefix-length 3)
+
+;; need this to complete something like berlin-crazy-cold-jupiter
+;; or fifteen_mountain_massachusetts_nineteen
+(setq company-dabbrev-char-regexp "\\(\\sw\\|\\s_\\|_\\|-\\)")
+;; ==== END auto-complete settings }}} ====
+
 (require 'fancy-narrow)
 (require 'evil-numbers)
 
@@ -450,7 +468,10 @@
 (require 'yankpad)
 (setq yankpad-file (concat +xwu-dir "yankpad.org"))
 
+(require 'tldr)
+
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
 (require 'pdf-tools)
 (pdf-tools-install)
+

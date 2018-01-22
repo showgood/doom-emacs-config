@@ -36,7 +36,11 @@
 (package! pdf-tools)
 (package! interleave)
 (package! yankpad)
-
+(package! elpy)
+;; (package! ox-clip)
+;; (package! ox-ipynb)
+(package! evil-org)
+(package! tldr)
 
 ;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 
@@ -73,3 +77,6 @@
 ;; couldn't get it installed on emacs 26
 ;; (package! org-preview-html)
 ;; (package! org-preview-html :recipe (:fetcher github :repo "lujun9972/org-preview-html"))
+
+;; couldn't get it working properly on mac
+;; (package! camcorder)

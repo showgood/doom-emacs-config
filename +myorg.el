@@ -27,6 +27,15 @@
                                      (org-pdfview-open link))))
 ;; ==== end org general settings }}} ====
 
+
+;; ==== evil related settings {{{ ====
+(require 'evil-org)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)
+;; ==== END evil related settings }}} ====
+
 ;; ==== org agenda settings {{{ ====
 (setq org-agenda-files '("~/org/gtd/"
                                "~/org/Inbox.org" ))
@@ -46,6 +55,30 @@
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 (setq org-refile-use-outline-path 'file)
+
+(setq org-todo-keyword-faces
+	(quote (("TODO"      :foreground "lightblue"    :weight bold)
+		("NEXT"      :foreground "red"          :weight bold)
+		("STARTED"   :foreground "red"          :weight bold)
+		("DONE"      :foreground "forest green" :weight bold)
+		("WAITING"   :foreground "orange"       :weight bold)
+		("TEAM"      :foreground "orange"       :weight bold)
+		("SOMEDAY"   :foreground "magenta"      :weight bold)
+		("CANCELLED" :foreground "forest green" :weight bold)
+		("QUOTE"     :foreground "red"          :weight bold)
+		("QUOTED"    :foreground "magenta"      :weight bold)
+		("APPROVED"  :foreground "forest green" :weight bold)
+		("EXPIRED"   :foreground "forest green" :weight bold)
+		("REJECTED"  :foreground "forest green" :weight bold)
+		("OPEN"      :foreground "blue"         :weight bold)
+		("CLOSED"    :foreground "forest green" :weight bold)
+		("PHONE"     :foreground "forest green" :weight bold))))
+(setq org-ellipsis " ⤵")
+
+(defface org-block-ipython
+  `((t (:background "thistle1")))
+  "Face for python blocks")
+
 
 ;;;; ==== end org agenda settings }}} ====
 
@@ -97,8 +130,8 @@
 ;; Disable add validation link when export to HTML
 (setq org-html-validation-link nil)
 
-;; do NOT treat _ as subscript and ^ as superscript
-(setq org-export-with-sub-superscripts nil)
+;; Interpret "_" and "^" for export when braces are used.
+(setq org-export-with-sub-superscripts '{})
 
 ;; export to github flavor markdown
 (require 'ox-gfm)
@@ -225,6 +258,3 @@
 ;;              (local-set-key (kbd "C-g") 'org-agenda-exit)))
 
 ;; ==== end of obsolete section }}} ====
-
-;; (eval-after-load "org"
-;;   '(require 'ox-gfm nil t))
