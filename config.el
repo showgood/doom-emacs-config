@@ -1,7 +1,9 @@
 ;; -*- origami-fold-style: triple-braces -*-
 
-;; (setq debug-on-error t)
+(setq debug-on-error t)
 (require 'counsel)
+(require 'general)
+(general-evil-setup)
 
 ;; === NOTE: load org-pdfview before +myorg====
 (load! org-pdfview)
@@ -11,6 +13,9 @@
 (load! +alias)  ; emacs alias
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/modules/private/showgood/evil-collection/"))
+(with-eval-after-load 'dired (require 'evil-collection-dired) (evil-collection-dired-setup))
 
 ;; ==== general settings {{{ ====
 ;; it’s much easier to move around lines based on how they are
