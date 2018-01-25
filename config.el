@@ -361,25 +361,23 @@
   (setq-local global-hl-line-mode nil)
   (setq-local beacon-mode nil)
   (setq term-buffer-maximum-size 0)
-  (define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
-  (define-key term-raw-map (kbd "C-;") 'evil-normal-state)
-
+  ;;(define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
+  ;;(define-key term-raw-map (kbd "C-;") 'evil-normal-state)
   ;; todo: needs more work for this to work
   ;; (define-key term-raw-map (kbd "jf") 'enter-evil-normal)
   ;; todo: not working due to c-y is defined globally
   ;; (define-key term-raw-map (kbd "c-y") 'term-paste)
-
-  (define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
-  (define-key term-raw-map (kbd "M-v") 'me/paste-in-term-mode)
+  ;;(define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
+  ;;(define-key term-raw-map (kbd "M-v") 'me/paste-in-term-mode)
   ;; note: automatically switch to evil-emacs-state
   ;; after press *p* in normal mode which seems the case most of the time
-  (evil-define-key 'normal term-raw-map
+  ;; (evil-define-key 'normal term-raw-map
     ;; "p" 'term-paste
-    "p" 'me/paste-in-term-mode
-    "i" 'evil-emacs-state
-    "i" 'evil-emacs-state
-    "a" 'evil-emacs-state
-    "a" 'evil-emacs-state)
+    ;; "p" 'me/paste-in-term-mode
+    ;; "i" 'evil-emacs-state
+    ;; "i" 'evil-emacs-state
+    ;; "a" 'evil-emacs-state
+    ;; "a" 'evil-emacs-state)
 )
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)
@@ -479,4 +477,3 @@
 (require 'pdf-occur)
 (require 'pdf-tools)
 (pdf-tools-install)
-

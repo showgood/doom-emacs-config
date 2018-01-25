@@ -966,19 +966,173 @@
 (general-define-key
  :states '(normal visual insert emacs)
  :prefix "SPC"
- :keymaps 'dired-mode-map
  :non-normal-prefix "M-m"
   "'" '(iterm-focus :which-key "iterm")
   "?" '(iterm-goto-filedir-or-home :which-key "iterm - goto dir")
-  "/" '(counsel-ag :wich-key "ag")
-  "TAB" '(ivy-switch-buffer :which-key "prev buffer")
+  "/" '(counsel-rg :wich-key "rg")
+  "TAB" '(switch-to-previous-buffer :which-key "prev buffer")
   "." '(avy-goto-word-or-subword-1  :which-key "go to word")
   "SPC" '(counsel-M-x :which-key "M-x")
+  "k" '(evil-avy-goto-char-2 :which-key "jump char 2")
+  "q" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
+  "Q" '(switch-to-buffer :which-key "Switch to buffer")
+  "d" '(counsel-git-grep :which-key "git grep")
+  "RET" '(bookmark-jump :which-key "Jump to bookmark")
+
+;;    :desc "Browse files"               :n "."   #'find-file
+;;    :desc "Toggle last popup"          :n "~"   #'doom/popup-toggle
+;;    :desc "Eval expression"            :n "`"   #'eval-expression
+;;    :desc "Blink cursor line"          :n "DEL" #'+doom/blink-cursor
+
+;;    (:desc "application" :prefix "a"
+;;         :desc "align regexp" :nv "r"     #'align-regexp
+;;         :desc "open terminal" :n "t"     #'+term/open)
+
   ;; "a" '(hydra-launcher/body :which-key "Applications")
   ;; "b" '(hydra-buffer/body t :which-key "Buffer")
   "c" '(:ignore t :which-key "Comment")
-  ;; "cl" '(comment-or-uncomment-region-or-line :which-key "comment line")
   ;; "w" '(hydra-window/body :which-key "Window")
+  "b" '(:ignore t :which-key "buffers")
+  "bb" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
+  "bB" '(switch-to-buffer :which-key "Switch to buffer")
+
+  "e" '(:ignore t :which-key "Errors")
+  "el" '(flycheck-list-errors :which-key "List errors")
+  "en" '(next-error :which-key "next errors")
+  "ep" '(previous-error :which-key "next errors")
+
   "f" '(:ignore t :which-key "Files")
   "fd" '(counsel-git :which-key "find in git dir")
+  "ff" '(counsel-find-file :which-key "find file")
+  "fj" '(dired-jump :which-key "dired jump")
+  "fn" '(cp-filename-of-current-buffer :which-key "yank filename only")
+  "fp" '(+hlissner/yank-buffer-filename :which-key "yank file full path")
+
+  "g" '(:ignore t :which-key "Git")
+  "gs" '(magit-status :which-key "Git status")
+  "gb" '(magit-blame :which-key "Git blame")
+  "gt" '(my-git-timemachine :which-key "Git time machine")
+  "gg" '(my-goto-git-gutter :which-key "Git gutter")
+
+;;    (:desc "git" :prefix "g"
+;;      :desc "Git revert hunk"   :n  "r" #'git-gutter:revert-hunk
+;;      :desc "Git revert buffer" :n  "R" #'vc-revert
+;;      :desc "List gists"        :n  "g" #'+gist:list
+;;      :desc "Next hunk"         :nv "]" #'git-gutter:next-hunk
+;;      :desc "Previous hunk"     :nv "[" #'git-gutter:previous-hunk)
+
+  "h" '(:ignore t :which-key "Help/Highlight")
+  "hm" '(describe-mode :which-key "Describe mode")
+  "hf" '(describe-function :which-key "Describe function")
+  "hk" '(describe-key :which-key "Describe key")
+  "hv" '(describe-variable :which-key "Describe variable")
+  "hL" '(hl-highlight-thingatpt-global :which-key "highlight global")
+  "hl" '(hl-highlight-thingatpt-local :which-key "highlight local")
+  "hu" '(hl-unhighlight-all-local :which-key "un highlight local")
+  "hU" '(hl-unhighlight-all-global :which-key "un highlight global")
+
+;;      :desc "prev highlight "       :n "N" #'hl-find-prev-thing
+;;      :desc "next highlight "       :n "n" #'hl-find-next-thing
+
+  "j" '(:ignore t :which-key "Jump")
+  "ji" '(imenu :which-key "Imenu")
+  "jb" '(avy-pop-mark :which-key "jump back")
+  "jI" '(imenu-anywhere :which-key "Imenu across buffers")
+  "jm" '(evil-show-marks :which-key "show marks")
+  "jr" '(evil-show-registers :which-key "show registers")
+  "jo" '(+jump/online-select :which-key "Online providers")
+
+  "l" '(:ignore t :which-key "workspace/layout")
+  "ln" '(+workspace/me/new :which-key "New workspace")
+  "ll" '(+workspace/switch-to :which-key "switch workspace")
+  "l TAB" '(doom/jump-to-last-workspace :which-key "toggle workspace")
+
+  "o" '(:ignore t :which-key "bookmark")
+  "om" '(bookmark-set :which-key "set bookmark")
+  "ol" '(bookmark-bmenu-list :which-key "open bookmark buffer")
+  "ou" '(bmkp-url-target-(set  ) :which-key "set url bookmark")
+  "os" '(bmkp-set-snippet-bookmark :which-key "set snippet bookmark")
+  "od" '(bmkp-dired-jump :which-key "jump to dired bookmark")
+
+  "w"  '(:ignore t :which-key "Windows")
+  "wd" '(delete-window :which-key "delete window")
+  "wD" '(ace-delete-window :which-key "ace delete window")
+  "wF" '(make-frame :which-key "make frame")
+  "w-" '(evil-window-split :which-key "split horizontally")
+  "wv" '(evil-window-vsplit :which-key "split vertically")
+  "wm" '(delete-other-windows :which-key "maximize window")
+  "wt" '(window-split-toggle :which-key "toggle window layout")
+  "ww" '(ace-window :which-key "ace window")
+  "w TAB" '(aw-flip-window :which-key "select previous window")
+)
+
+(general-define-key
+ :states '(normal visual insert emacs)
+ "C-y" '(yank :which-key "yank")
+ "C-s" '(counsel-grep-or-swiper :which-key "swiper")
+ "M-y" '(counsel-yank-pop :which-key "counsel yank pop")
+
+ "C-h" '(evil-window-left :which-key "left window")
+ "C-j" '(evil-window-down :which-key "down window")
+ "C-k" '(evil-window-up :which-key "up window")
+ "C-l" '(evil-window-right :which-key "right window")
+ "M-/" '(dabbrev-expand :which-key "hippie expand")
+ "C-c <left>" '(winner-undo :which-key "winner undo")
+ "C-c <right>" '(winner-redo :which-key "winner redo")
+)
+
+;; ==== insert map keybindings {{{ ====
+(general-define-key
+ :states '(insert emacs)
+ "C-<tab>" '(aya-expand :which-key "aya-expand")
+)
+;; ==== END insert map keybindings }}} ====
+
+;; ==== normal/visual map keybindings {{{ ====
+(general-define-key
+ :states '(normal visual)
+ "C-<tab>" '(aya-create :which-key "aya-create")
+)
+
+;; ==== END normal/visual map keybindings }}} ====
+
+(general-define-key
+ :states '(normal visual)
+ "gc" '(evil-commentary :which-key "evil commentary")
+ "gx" '(evil-exchange :which-key "evil exchange")
+ "gd" '(+jump/definition :which-key "jump to definition")
+ "gD" '(+jump/references :which-key "jump to references")
+ "gh" '(+jump/documentation :which-key "jump to documentation")
+ "gp" '(+evil/reselect-paste :which-key "+evil/reselect-paste")
+ "gr" '(+eval:region :which-key "+eval:region")
+ "gR" '(+eval/buffer :which-key "+eval/buffer")
+;;  :v  "gR" #'+eval:replace-region
+)
+
+(general-define-key
+ :states '(normal)
+ :keymaps 'term-raw-map
+ "p" '(me/paste-in-term-mode :which-key "paste")
+ "i" '(evil-emacs-state :which-key "insert")
+ "a" '(evil-emacs-state :which-key "insert")
+ "C-y" '(me/paste-in-term-mode :which-key "paste")
+)
+
+(general-define-key
+ :states '(insert emacs)
+ :keymaps 'term-raw-map
+ "jf" '(evil-normal-state :which-key "escape")
+ "C-y" '(me/paste-in-term-mode :which-key "paste")
+)
+
+(general-define-key
+ :states '(insert emacs)
+ :keymaps 'yas-minor-mode-map
+ "<tab>" yas-maybe-expand
+)
+
+(general-define-key
+ :states '(visual)
+ :keymaps 'yas-minor-mode-map
+ "<tab>" '(+snippets/expand-on-region :which-key "expand on region")
 )
