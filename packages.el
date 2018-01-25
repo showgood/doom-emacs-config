@@ -41,6 +41,7 @@
 ;; (package! ox-ipynb)
 (package! evil-org)
 (package! tldr)
+(package! general)
 
 ;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 

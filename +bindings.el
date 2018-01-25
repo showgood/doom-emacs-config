@@ -995,6 +995,8 @@
   "b" '(:ignore t :which-key "buffers")
   "bb" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
   "bB" '(switch-to-buffer :which-key "Switch to buffer")
+  "br" '(rename-buffer :which-key "rename buffer")
+  "bk" '(kill-this-buffer :which-key "kill buffer")
 
   "e" '(:ignore t :which-key "Errors")
   "el" '(flycheck-list-errors :which-key "List errors")
@@ -1050,7 +1052,7 @@
   "o" '(:ignore t :which-key "bookmark")
   "om" '(bookmark-set :which-key "set bookmark")
   "ol" '(bookmark-bmenu-list :which-key "open bookmark buffer")
-  "ou" '(bmkp-url-target-(set  ) :which-key "set url bookmark")
+  "ou" '(bmkp-url-target-set :which-key "set url bookmark")
   "os" '(bmkp-set-snippet-bookmark :which-key "set snippet bookmark")
   "od" '(bmkp-dired-jump :which-key "jump to dired bookmark")
 
@@ -1121,7 +1123,7 @@
 (general-define-key
  :states '(insert emacs)
  :keymaps 'term-raw-map
- "jf" '(evil-normal-state :which-key "escape")
+ "C-;" '(evil-normal-state :which-key "escape")
  "C-y" '(me/paste-in-term-mode :which-key "paste")
 )
 
@@ -1135,4 +1137,12 @@
  :states '(visual)
  :keymaps 'yas-minor-mode-map
  "<tab>" '(+snippets/expand-on-region :which-key "expand on region")
+)
+
+(general-define-key
+ :states '(normal)
+ :keymaps 'web-mode-map
+ "<tab>" '(web-mode-fold-or-unfold :which-key "fold")
+ "<backtab>" '(web-mode-element-children-fold-or-unfold :which-key "fold child")
+ ",ev" '(web-mode-element-content-select :which-key "mark element content")
 )
