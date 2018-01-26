@@ -8,14 +8,13 @@
 ;; === NOTE: load org-pdfview before +myorg====
 (load! org-pdfview)
 
-(load! +bindings)  ; my key bindings
 (load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/modules/private/showgood/evil-collection/"))
-(with-eval-after-load 'dired (require 'evil-collection-dired) (evil-collection-dired-setup))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/modules/private/showgood/evil-collection/"))
+;; (with-eval-after-load 'dired (require 'evil-collection-dired) (evil-collection-dired-setup))
 
 ;; ==== general settings {{{ ====
 ;; it’s much easier to move around lines based on how they are
@@ -472,6 +471,8 @@
 (setq yankpad-file (concat +xwu-dir "yankpad.org"))
 
 (require 'tldr)
+
+(load! +bindings)  ; my key bindings
 
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)

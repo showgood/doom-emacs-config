@@ -1146,3 +1146,9 @@
  "<backtab>" '(web-mode-element-children-fold-or-unfold :which-key "fold child")
  ",ev" '(web-mode-element-content-select :which-key "mark element content")
 )
+(general-define-key
+:states '(normal)
+:keymaps 'dired-mode-map
+ :prefix "SPC"
+ "bB" '(switch-to-buffer :which-key "Switch to buffer")
+)
