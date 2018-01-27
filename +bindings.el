@@ -908,21 +908,6 @@
 ;; (evil-define-key 'normal org-mode-map (kbd "<tab>") 'org-cycle
 ;;                                       (kbd "<return>") 'org-open-at-point)
 
-;; (evil-define-key 'normal dired-mode-map
-;;   (kbd "e") 'ora-ediff-files
-;;   (kbd "SPC q") '+ivy/switch-workspace-buffer
-;;   (kbd "SPC Q") 'ivy-switch-buffer
-;;   (kbd "SPC SPC") 'counsel-M-x
-;;   (kbd "SPC ff")  'counsel-find-file
-;;   (kbd "SPC ws")  'evil-window-split
-;;   (kbd "SPC bb")  'persp-switch-to-buffer
-;;   (kbd "SPC nn")  '+xwu/find-in-notes
-;;   (kbd "SPC pf")  'counsel-projectile-find-file
-;;   (kbd "SPC hk")  'describe-key
-;;   (kbd "SPC ll")  '+workspace/switch-to)
-
-;; (evil-define-key 'normal nxml-mode-map (kbd "SPC xp") 'nxml-where)
-;; (evil-define-key 'normal json-mode-map (kbd "SPC xp") 'jsons-print-path)
 ;; (define-key ivy-minibuffer-map (kbd "M-y") 'counsel-yank-pop)
 ;; (define-key evil-ex-map "\M-y" #'counsel-yank-pop)
 
@@ -947,31 +932,19 @@
 ;;                   ("M-y" . yank-pop)
 ;; (setq term-bind-key-alist (delq (assoc (car p) term-bind-key-alist) jterm-bind-key-falist))
 ;; (add-to-list 'term-bind-key-alist p))))))
-(general-omap
- :prefix "SPC"
-  "." 'evil-avy-goto-char-2
-  "l" 'evil-avy-goto-line
-  "e" 'evil-avy-goto-subword-0 )
 
-;; (define-prefix-command 'my-buffer-cmd-map)
-;; (define-key my-buffer-cmd-map "b" 'persp-switch-to-buffer)
-;; (define-key my-buffer-cmd-map "B" 'switch-to-buffer)
+(load! myhydra)
 
-;; (general-define-key :states '(normal insert emacs)
-;;                     :prefix "SPC"
-;;                     :non-normal-prefix "M-SPC"
-;;                     :prefix-map 'my-buffer-cmd-map
-;;                     "/" 'swiper)
-
+(general-override-mode)
 (general-define-key
  :states '(normal visual insert emacs)
+ :keymaps 'override
  :prefix "SPC"
  :non-normal-prefix "M-m"
   "'" '(iterm-focus :which-key "iterm")
   "?" '(iterm-goto-filedir-or-home :which-key "iterm - goto dir")
   "/" '(counsel-rg :wich-key "rg")
   "TAB" '(switch-to-previous-buffer :which-key "prev buffer")
-  "." '(avy-goto-word-or-subword-1  :which-key "go to word")
   "SPC" '(counsel-M-x :which-key "M-x")
   "k" '(evil-avy-goto-char-2 :which-key "jump char 2")
   "q" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
@@ -979,19 +952,12 @@
   "d" '(counsel-git-grep :which-key "git grep")
   "RET" '(bookmark-jump :which-key "Jump to bookmark")
 
-;;    :desc "Browse files"               :n "."   #'find-file
-;;    :desc "Toggle last popup"          :n "~"   #'doom/popup-toggle
-;;    :desc "Eval expression"            :n "`"   #'eval-expression
-;;    :desc "Blink cursor line"          :n "DEL" #'+doom/blink-cursor
+  "a" '(:ignore t :which-key "applications")
+  "ad" '(deft :which-key "deft")
+  "af" '(deft-find-file :which-key "deft-find-file")
+  "ar" '(align-regexp :which-key "align-regexp")
+  "at" '(+term/open :which-key "+term/open")
 
-;;    (:desc "application" :prefix "a"
-;;         :desc "align regexp" :nv "r"     #'align-regexp
-;;         :desc "open terminal" :n "t"     #'+term/open)
-
-  ;; "a" '(hydra-launcher/body :which-key "Applications")
-  ;; "b" '(hydra-buffer/body t :which-key "Buffer")
-  "c" '(:ignore t :which-key "Comment")
-  ;; "w" '(hydra-window/body :which-key "Window")
   "b" '(:ignore t :which-key "buffers")
   "bb" '(persp-switch-to-buffer :which-key "Switch workspace buffer")
   "bB" '(switch-to-buffer :which-key "Switch to buffer")
@@ -1003,25 +969,20 @@
   "en" '(next-error :which-key "next errors")
   "ep" '(previous-error :which-key "next errors")
 
-  "f" '(:ignore t :which-key "Files")
-  "fd" '(counsel-git :which-key "find in git dir")
+  "f" '(:ignore t :which-key "Files/Fold")
+  "fd" '(+evil:delete-this-file :which-key "delete this file")
+  ;; TODO: use 'fe' to open config.el
   "ff" '(counsel-find-file :which-key "find file")
   "fj" '(dired-jump :which-key "dired jump")
   "fn" '(cp-filename-of-current-buffer :which-key "yank filename only")
   "fp" '(+hlissner/yank-buffer-filename :which-key "yank file full path")
+  "fo" '(hydra-folding/body :which-key "hydra folding")
 
   "g" '(:ignore t :which-key "Git")
   "gs" '(magit-status :which-key "Git status")
   "gb" '(magit-blame :which-key "Git blame")
   "gt" '(my-git-timemachine :which-key "Git time machine")
-  "gg" '(my-goto-git-gutter :which-key "Git gutter")
-
-;;    (:desc "git" :prefix "g"
-;;      :desc "Git revert hunk"   :n  "r" #'git-gutter:revert-hunk
-;;      :desc "Git revert buffer" :n  "R" #'vc-revert
-;;      :desc "List gists"        :n  "g" #'+gist:list
-;;      :desc "Next hunk"         :nv "]" #'git-gutter:next-hunk
-;;      :desc "Previous hunk"     :nv "[" #'git-gutter:previous-hunk)
+  "gg" '(hydra-git/body :which-key "Git gutter")
 
   "h" '(:ignore t :which-key "Help/Highlight")
   "hm" '(describe-mode :which-key "Describe mode")
@@ -1033,10 +994,8 @@
   "hu" '(hl-unhighlight-all-local :which-key "un highlight local")
   "hU" '(hl-unhighlight-all-global :which-key "un highlight global")
 
-;;      :desc "prev highlight "       :n "N" #'hl-find-prev-thing
-;;      :desc "next highlight "       :n "n" #'hl-find-next-thing
-
   "j" '(:ignore t :which-key "Jump")
+  "jd" '(dumb-jump-go :which-key "dumb-jump-go")
   "ji" '(imenu :which-key "Imenu")
   "jb" '(avy-pop-mark :which-key "jump back")
   "jI" '(imenu-anywhere :which-key "Imenu across buffers")
@@ -1049,12 +1008,42 @@
   "ll" '(+workspace/switch-to :which-key "switch workspace")
   "l TAB" '(doom/jump-to-last-workspace :which-key "toggle workspace")
 
+  "n" '(:ignore t :which-key "Notes")
+  "nn" '(+xwu/find-in-notes :which-key "+xwu/find-in-notes")
+  "nN" '(+xwu/browse-notes :which-key "+xwu/browse-notes")
+  "nd" '(+xwu/find-in-docs :which-key "find in docs")
+  "nD" '(+xwu/browse-docs :which-key "browse docs")
+
   "o" '(:ignore t :which-key "bookmark")
   "om" '(bookmark-set :which-key "set bookmark")
   "ol" '(bookmark-bmenu-list :which-key "open bookmark buffer")
   "ou" '(bmkp-url-target-set :which-key "set url bookmark")
   "os" '(bmkp-set-snippet-bookmark :which-key "set snippet bookmark")
   "od" '(bmkp-dired-jump :which-key "jump to dired bookmark")
+
+  "p" '(:ignore t :which-key "project")
+  "pp" '(projectile-switch-project :which-key "projectile-switch-project")
+  "pt" '(+ivy/tasks :which-key "+ivy/tasks")
+  "pf" '(counsel-projectile-find-file :which-key "counsel-projectile-find-file")
+  "px" '(projectile-invalidate-cache :which-key "projectile-invalidate-cache")
+  "po" '(+term/open-popup-in-project :which-key "+term/open-popup-in-project")
+
+  "s" '(:ignore t :which-key "snippets / switch")
+  "sf" '(yas-new-snippet :which-key "yas-new-snippet")
+  "si" '(yas-insert-snippet :which-key "yas-insert-snippet")
+  "ss" '(yas-visit-snippet-file :which-key "yas-visit-snippet-file")
+  "sS" '(+xwu/find-in-snippets :which-key "+xwu/find-in-snippets")
+  "sn" '(bb/nylx :which-key "bb/nylx")
+  "st" '(bb/trsl :which-key "bb/trsl")
+
+  "t"  '(:ignore t :which-key "toggle")
+  "tv" '(visual-line-mode :which-key "visual-line-mode")
+  "tf" '(visual-fill-column-mode :which-key "visual-fill-column-mode")
+  "ts" '(flyspell-mode :which-key "flyspell-mode")
+  "tc" '(flycheck-mode :which-key "flycheck-mode")
+  "tg" '(+evil-goggles/toggle :which-key "+evil-goggles/toggle")
+  "ti" '(highlight-indentation-mode :which-key "highlight-indentation-mode")
+  "tI" '(highlight-indentation-current-column-mode :which-key "highlight-indentation-current-column-mode")
 
   "w"  '(:ignore t :which-key "Windows")
   "wd" '(delete-window :which-key "delete window")
@@ -1066,6 +1055,28 @@
   "wt" '(window-split-toggle :which-key "toggle window layout")
   "ww" '(ace-window :which-key "ace window")
   "w TAB" '(aw-flip-window :which-key "select previous window")
+  "wh" '(hydra-window/body :which-key "Window Hydra")
+
+   "z" '(:ignore t :which-key "folding")
+   "zt" '(origami-toggle-all-nodes :which-key "origami-toggle-all-nodes")
+   "zo" '(origami-open-node :which-key "origami-open-node")
+   "zc" '(origami-close-node :which-key "origami-close-node")
+   "zO" '(origami-open-node-recursively :which-key "origami-open-node-recursively")
+   "zC" '(origami-close-node-recursively :which-key "origami-close-node-recursively")
+   "za" '(origami-open-all-nodes :which-key "origami-open-all-nodes")
+   "zm" '(origami-close-all-nodes :which-key "origami-close-all-nodes")
+)
+
+(general-omap
+ :prefix "SPC"
+  "." 'evil-avy-goto-char-2
+  "l" 'evil-avy-goto-line
+  "e" 'evil-avy-goto-subword-0 )
+
+(general-define-key
+ :states '(normal)
+ "TAB" '(origami-toggle-node :which-key "origami-toggle-node")
+ "<backtab>" '(origami-toggle-all-nodes :which-key "origami-toggle-all-nodes")
 )
 
 (general-define-key
@@ -1081,6 +1092,50 @@
  "M-/" '(dabbrev-expand :which-key "hippie expand")
  "C-c <left>" '(winner-undo :which-key "winner undo")
  "C-c <right>" '(winner-redo :which-key "winner redo")
+
+ "<f2>" '(org-clock-goto :which-key "org-clock-goto")
+ "<f3>" '(org-clock-in :which-key "org-clock-in")
+ "<f4>" '(org-clock-out :which-key "org-clock-out")
+ "<f5> a" '(org-archive-subtree :which-key "org-archive-subtree")
+ "<f5> c" '(calendar :which-key "calendar")
+ "<f5> r" '(org-refile :which-key "org-refile")
+ "<f8> c" '(counsel-git-grep-complete-line :which-key "counsel-git-grep-complete-line")
+ "<f9> r" '(rename-buffer :which-key "rename-buffer")
+ "<f9> a" '(org-attach :which-key "org-attach")
+ "<f10>" '(org-capture :which-key "org-capture")
+ "<f11>" '(org-agenda :which-key "org-agenda")
+ "<f12>" '(org-todo :which-key "org-todo")
+
+;; :nvime "<f9> c" #'cp-filename-of-current-buffer
+;; ;; copy current line
+;; :nvime "<f9> d" #'duplicate-line
+;; :nvime "<f9> e" #'+eshell/open
+
+;;  ;; :nvime "<f6>"  #'rtags-find-symbol-at-point
+;;  :nvime "<f6> a"  #'bb/arm-report-status
+;;  :nvime "<f6> r"  #'bb/report-status
+
+;; :nvime "<f5> d" #'ace-delete-window
+;; :nvime "<f5> l" (lambda () (interactive) (list-matching-lines (current-word)))
+
+;; :nvime "<f7> b" #'counsel-projectile-switch-to-buffer
+;; :nvime "<f7> c" #'projectile-compile-project
+;; :nvime "<f7> d" #'counsel-projectile-find-dir
+;; :nvime "<f7> e" #'eval-region
+;; :nvime "<f7> f" #'counsel-projectile-find-file
+;; ;; open the file under cursor within project (C-c p g)
+;; :nvime "<f7> g" #'projectile-find-file-dwim
+;; :nvime "<f7> o" #'projectile-find-file-dwim-other-window
+;; :nvime "<f7> s" #'counsel-rg
+
+;; :nvime "<f7> c" #'projectile-compile-project
+;; :nvime "<f7> d" #'counsel-projectile-find-dir
+;; :nvime "<f7> e" #'eval-region
+;; :nvime "<f7> f" #'counsel-projectile-find-file
+;; ;; open the file under cursor within project (C-c p g)
+;; :nvime "<f7> g" #'projectile-find-file-dwim
+;; :nvime "<f7> o" #'projectile-find-file-dwim-other-window
+;; :nvime "<f7> s" #'counsel-rg
 )
 
 ;; ==== insert map keybindings {{{ ====
@@ -1144,11 +1199,116 @@
  :keymaps 'web-mode-map
  "<tab>" '(web-mode-fold-or-unfold :which-key "fold")
  "<backtab>" '(web-mode-element-children-fold-or-unfold :which-key "fold child")
- ",ev" '(web-mode-element-content-select :which-key "mark element content")
+ ",e" '(web-mode-element-content-select :which-key "mark element content")
 )
+
 (general-define-key
-:states '(normal)
-:keymaps 'dired-mode-map
- :prefix "SPC"
- "bB" '(switch-to-buffer :which-key "Switch to buffer")
+ :states '(normal visual)
+ :prefix ","
+ "D" '(dash-at-point :which-key "dash-at-point")
+ "+" '(evil-numbers/inc-at-pt :which-key "evil-numbers/inc-at-pt")
+ "-" '(evil-numbers/dec-at-pt :which-key "evil-numbers/dec-at-pt")
 )
+
+;; # TODO: define them for insert, emacs state
+;; :nvime "C-c +" #'evil-numbers/inc-at-pt
+;; :nvime "C-c -" #'evil-numbers/dec-at-pt
+
+;; :nvime "\C-cl" #'org-store-link
+;; :nvime "\C-cr" #'org-refile
+;;    :n "yc" #'yankpad-set-category
+;;    :n "ye" #'yankpad-edit
+;;    :n "yt" #'yankpad-expand
+;;    :n "yi" #'yankpad-insert
+;;    :n "yr" #'yankpad-reload
+
+;;      :desc "Spelling error"      :nv "s" #'evil-next-flyspell-error
+;;      :desc "Spelling correction" :n  "S" #'flyspell-correct-word-generic)
+
+
+(general-define-key
+ :prefix ","
+ :states '(normal)
+ :keymaps 'c++-mode-map
+ "d" '(rtags-find-symbol-at-point :which-key "find definition")
+ "r" '(rtags-find-references-at-point :which-key "find references")
+)
+
+(general-define-key
+ :prefix ","
+ :states '(normal visual)
+ :keymaps 'elpy-mode-map
+ "d" '(elpy-goto-definition :which-key "elpy-goto-definition")
+ "D" '(elpy-doc :which-key "elpy-doc")
+ "f" '(elpy-format-code :which-key "elpy-format-code")
+ "r" '(xref-find-references :which-key "xref-find-references")
+ "m" '(elpy-multiedit :which-key "elpy-multiedit")
+ "M" '(elpy-multiedit-stop :which-key "elpy-multiedit-stop")
+ "t" '(elpy-test :which-key "elpy-test")
+)
+
+(general-define-key
+ :prefix ","
+ :states '(normal)
+ :keymaps 'nxml-mode-map
+ "xp" '(nxml-where :which-key "xpath")
+)
+
+;; another way to print json path is to
+;; switch to js2-mode, then use js2-print-json-path
+(general-define-key
+ :prefix ","
+ :states '(normal)
+ :keymaps 'json-mode-map
+ "xp" '(jsons-print-path :which-key "xpath")
+)
+
+;; NOTE: need to use 'override to make M-y works in evil-ex-map
+(general-define-key
+ :keymaps 'override
+ "M-y" '(counsel-yank-pop :which-key "counsel-yank-pop")
+)
+;; (define-key ivy-minibuffer-map (kbd "M-y") 'counsel-yank-pop)
+;; (define-key evil-ex-map "\M-y" #'counsel-yank-pop)
+
+;;  ;; evil-mc
+;;  (:prefix "gz"
+;;    :nv "m" #'evil-mc-make-all-cursors
+;;    :nv "u" #'evil-mc-undo-all-cursors
+;;    :nv "z" #'+evil/mc-make-cursor-here
+;;    :nv "t" #'+evil/mc-toggle-cursors
+;;    :nv "n" #'evil-mc-make-and-goto-next-cursor
+;;    :nv "p" #'evil-mc-make-and-goto-prev-cursor
+;;    :nv "N" #'evil-mc-make-and-goto-last-cursor
+;;    :nv "P" #'evil-mc-make-and-goto-first-cursor
+;;    :nv "d" #'evil-mc-make-and-goto-next-match
+;;    :nv "D" #'evil-mc-make-and-goto-prev-match)
+;;  (:after evil-mc
+;;    :map evil-mc-key-map
+;;    :nv "C-n" #'evil-mc-make-and-goto-next-cursor
+;;    :nv "C-N" #'evil-mc-make-and-goto-last-cursor
+;;    :nv "C-p" #'evil-mc-make-and-goto-prev-cursor
+;;    :nv "C-P" #'evil-mc-make-and-goto-first-cursor)
+
+;;  ;; evil-multiedit
+;;  :v  "R"     #'evil-multiedit-match-all
+;;  :n  "M-d"   #'evil-multiedit-match-symbol-and-next
+;;  :n  "M-D"   #'evil-multiedit-match-symbol-and-prev
+;;  :v  "M-d"   #'evil-multiedit-match-and-next
+;;  :v  "M-D"   #'evil-multiedit-match-and-prev
+;;  :nv "C-M-d" #'evil-multiedit-restore
+;;  (:after evil-multiedit
+;;    (:map evil-multiedit-state-map
+;;      "M-d" #'evil-multiedit-match-and-next
+;;      "M-D" #'evil-multiedit-match-and-prev
+;;      "RET" #'evil-multiedit-toggle-or-restrict-region)
+;;    (:map (evil-multiedit-state-map evil-multiedit-insert-state-map)
+;;      "C-n" #'evil-multiedit-next
+;;      "C-p" #'evil-multiedit-prev))
+
+;;  ;; --- Custom evil text-objects ---------------------
+;;  :textobj "a" #'evil-inner-arg                    #'evil-outer-arg
+;;  :textobj "B" #'evil-textobj-anyblock-inner-block #'evil-textobj-anyblock-a-block
+;;  :textobj "i" #'evil-indent-plus-i-indent         #'evil-indent-plus-a-indent
+;;  :textobj "I" #'evil-indent-plus-i-indent-up      #'evil-indent-plus-a-indent-up
+;;  :textobj "J" #'evil-indent-plus-i-indent-up-down #'evil-indent-plus-a-indent-up-down

@@ -1,9 +1,9 @@
 ;; -*- origami-fold-style: triple-braces -*-
 
-(setq debug-on-error t)
+(setq debug-on-error nil)
 (require 'counsel)
 (require 'general)
-(general-evil-setup)
+(general-evil-setup t)
 
 ;; === NOTE: load org-pdfview before +myorg====
 (load! org-pdfview)
@@ -73,7 +73,7 @@
 (setq python-shell-interpreter "jupyter"
       python-shell-interpreter-args "console --simple-prompt")
 
-(setq elpy-rpc-python-command "/Users/showgood/anaconda2/bin/python")
+(setq elpy-rpc-python-command (format "/Users/%s/anaconda2/bin/python" user-login-name))
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -330,7 +330,6 @@
 
 (autoload 'dash-at-point "dash-at-point"
           "search the word at point with dash." t nil)
-(global-set-key "\C-cd" 'dash-at-point)
 
 ;; ==== workspace settings {{{ ====
 (defvar doom-default-workspace-name "main"
@@ -360,23 +359,6 @@
   (setq-local global-hl-line-mode nil)
   (setq-local beacon-mode nil)
   (setq term-buffer-maximum-size 0)
-  ;;(define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
-  ;;(define-key term-raw-map (kbd "C-;") 'evil-normal-state)
-  ;; todo: needs more work for this to work
-  ;; (define-key term-raw-map (kbd "jf") 'enter-evil-normal)
-  ;; todo: not working due to c-y is defined globally
-  ;; (define-key term-raw-map (kbd "c-y") 'term-paste)
-  ;;(define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
-  ;;(define-key term-raw-map (kbd "M-v") 'me/paste-in-term-mode)
-  ;; note: automatically switch to evil-emacs-state
-  ;; after press *p* in normal mode which seems the case most of the time
-  ;; (evil-define-key 'normal term-raw-map
-    ;; "p" 'term-paste
-    ;; "p" 'me/paste-in-term-mode
-    ;; "i" 'evil-emacs-state
-    ;; "i" 'evil-emacs-state
-    ;; "a" 'evil-emacs-state
-    ;; "a" 'evil-emacs-state)
 )
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)
