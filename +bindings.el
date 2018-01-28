@@ -1038,6 +1038,8 @@
   "st" '(bb/trsl :which-key "bb/trsl")
 
   "t"  '(:ignore t :which-key "toggle")
+  "td" '(dired-sidebar-toggle-sidebar :which-key "dired-sidebar-toggle-sidebar")
+  "tD" '(dired-sidebar-toggle-with-current-directory :which-key "dired sidebar cur directory")
   "tv" '(visual-line-mode :which-key "visual-line-mode")
   "tf" '(visual-fill-column-mode :which-key "visual-fill-column-mode")
   "ts" '(flyspell-mode :which-key "flyspell-mode")
@@ -1322,3 +1324,17 @@
 ;;  :textobj "i" #'evil-indent-plus-i-indent         #'evil-indent-plus-a-indent
 ;;  :textobj "I" #'evil-indent-plus-i-indent-up      #'evil-indent-plus-a-indent-up
 ;;  :textobj "J" #'evil-indent-plus-i-indent-up-down #'evil-indent-plus-a-indent-up-down
+
+;; https://oremacs.com/2015/01/21/dired-shortcuts/
+(general-define-key
+:states '(normal visual insert emacs)
+:keymaps 'dired-mode-map
+:prefix ","
+:non-normal-prefix "M-SPC"
+"f" '(find-name-dired :which-key "find name dired")
+
+;; this will go to parent folder using existing dired buffer
+"a" '(lambda ()
+      (interactive)
+      (find-alternate-file "..") :which-key "go to parent folder")
+)

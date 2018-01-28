@@ -464,8 +464,22 @@
 (setq yankpad-file (concat +xwu-dir "yankpad.org"))
 
 (require 'tldr)
+(require 'dired-sidebar)
+(require 'all-the-icons-dired)
 
+(all-the-icons-dired-mode)
+(setq dired-sidebar-subtree-line-prefix " .")
+
+(when IS-MAC
+    (if (display-graphic-p)
+        (setq dired-sidebar-theme 'icons)
+      (setq dired-sidebar-theme 'nerd)))
+
+(load! dired+)
 (load! +bindings)  ; my key bindings
+;; (diredp-find-file-reuse-dir-buffer t)
+;; make dired reuse buffer when change directory
+(diredp-make-find-file-keys-reuse-dirs)
 
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
