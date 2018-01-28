@@ -977,6 +977,7 @@
   "fn" '(cp-filename-of-current-buffer :which-key "yank filename only")
   "fp" '(+hlissner/yank-buffer-filename :which-key "yank file full path")
   "fo" '(hydra-folding/body :which-key "hydra folding")
+  "fr" '(ivy-recentf :which-key "recent file")
 
   "g" '(:ignore t :which-key "Git")
   "gs" '(magit-status :which-key "Git status")
@@ -1072,6 +1073,15 @@
   "." 'evil-avy-goto-char-2
   "l" 'evil-avy-goto-line
   "e" 'evil-avy-goto-subword-0 )
+
+(general-omap
+"s"  'evil-surround-edit
+"S"  'evil-Surround-edit
+)
+
+(general-vmap
+"S"  'evil-surround-region
+)
 
 (general-define-key
  :states '(normal)
@@ -1307,7 +1317,7 @@
 ;;      "C-p" #'evil-multiedit-prev))
 
 ;;  ;; --- Custom evil text-objects ---------------------
-;;  :textobj "a" #'evil-inner-arg                    #'evil-outer-arg
+;; :textobj "a" #'evil-inner-arg                    #'evil-outer-arg
 ;;  :textobj "B" #'evil-textobj-anyblock-inner-block #'evil-textobj-anyblock-a-block
 ;;  :textobj "i" #'evil-indent-plus-i-indent         #'evil-indent-plus-a-indent
 ;;  :textobj "I" #'evil-indent-plus-i-indent-up      #'evil-indent-plus-a-indent-up

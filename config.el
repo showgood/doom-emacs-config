@@ -35,8 +35,6 @@
 ;; https://writequit.org/articles/working-with-logs-in-emacs.html
 (setq auto-revert-tail-mode t)
 
-(setq debug-on-error t)
-
 ;; (set-frame-font "fira code:pixelsize=16:foundry=unknown:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
 ;; those settings are useful, but already set by doom-core
@@ -70,9 +68,22 @@
 ;; ==== elpy settings {{{ ====
 (require 'elpy)
 (elpy-enable)
-(setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt")
 
+;; NOTE: do NOT set to jupyter, otherwise ob-ipython would break
+;; set to ipython
+;; (setq python-shell-interpreter "jupyter"
+;;       python-shell-interpreter-args "console --simple-prompt")
+
+(when (executable-find "ipython")
+(setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i --simple-prompt --no-color-info"
+        python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+        python-shell-prompt-block-regexp "\\.\\.\\.\\.: "
+        python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+        python-shell-completion-setup-code
+        "from IPython.core.completerlib import module_completion"
+        python-shell-completion-string-code
+        "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
 (setq elpy-rpc-python-command (format "/Users/%s/anaconda2/bin/python" user-login-name))
 
 (when (require 'flycheck nil t)

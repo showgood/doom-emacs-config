@@ -1,3 +1,5 @@
+;; most hydra comes from https://github.com/sam217pa/emacs-config
+
 (defhydra hydra-git
   (:body-pre (git-gutter-mode 1)
    ;; :post (progn (kill-diff-buffers)
