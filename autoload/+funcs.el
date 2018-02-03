@@ -422,3 +422,27 @@ path. from http://www.emacswiki.org/emacs/NxmlMode"
       (insert "#+tblname:")
       (append-to-buffer buf (point-min) (point-max))
       )))
+
+;;;###autoload
+(defun search-current-line(pattern)
+  "search current line using pattern, return captured group, should
+   be only 1."
+  (interactive)
+  (re-search-forward pattern (line-end-position))
+  (match-string 1)
+)
+
+;;;###autoload
+(defun extract-from-org-heading (pattern)
+  (interactive)
+  "go to top level heading from current position and try to extract
+   using pattern"
+  (let ((result nil))
+    (save-excursion
+      (while (org-up-heading-safe))
+      (setq result (search-current-line pattern))
+      (kill-new result))
+      (if result
+        (message "saved to kill-ring: %s" result)
+        (message "no match found!"))
+))

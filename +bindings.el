@@ -1179,6 +1179,12 @@
 )
 
 (general-define-key
+ :states '(visual)
+ "v" '(er/expand-region :which-key "expand region")
+ "V" '(er/contract-region :which-key "contract region")
+)
+
+(general-define-key
  :states '(normal)
  :keymaps 'term-raw-map
  "p" '(me/paste-in-term-mode :which-key "paste")
@@ -1337,4 +1343,14 @@
 "a" '(lambda ()
       (interactive)
       (find-alternate-file "..") :which-key "go to parent folder")
+)
+
+(general-define-key
+:states '(normal)
+:keymaps 'org-mode-map
+"<return>" 'org-open-at-point
+",o" '(org-attach-open-in-emacs :which-key "open attachment")
+",a" '(org-attach-attach :which-key "attach file")
+",l" '(org-store-link :which-key "store link")
+",p" '(org-insert-link :which-key "insert link")
 )
