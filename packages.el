@@ -44,6 +44,10 @@
 (package! general)
 (package! all-the-icons-dired)
 (package! dired-sidebar)
+(package! visual-regexp)
+(package! visual-regexp-steroids)
+(package! atomic-chrome)
+
 ;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 
 ;; (package! solarized-theme)

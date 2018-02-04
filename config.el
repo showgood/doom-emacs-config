@@ -481,6 +481,12 @@
 ;; make dired reuse buffer when change directory
 (diredp-make-find-file-keys-reuse-dirs)
 
+(require 'visual-regexp)
+(require 'visual-regexp-steroids)
+
+(require 'atomic-chrome)
+(atomic-chrome-start-server)
+
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
 (require 'pdf-tools)
