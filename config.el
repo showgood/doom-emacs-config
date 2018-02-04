@@ -514,6 +514,11 @@ In that case, insert the number."
 (require 'atomic-chrome)
 (atomic-chrome-start-server)
 
+(require 'paperless)
+
+(setq paperless-capture-directory "~/scan")
+(setq paperless-root-directory "~/docs")
+
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
 (require 'pdf-tools)

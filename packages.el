@@ -47,6 +47,7 @@
 (package! visual-regexp)
 (package! visual-regexp-steroids)
 (package! atomic-chrome)
+(package! paperless)
 
 ;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 

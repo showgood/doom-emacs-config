@@ -1346,6 +1346,15 @@
 )
 
 (general-define-key
+:states '(normal visual insert emacs)
+:keymaps 'dired-mode-map
+ "C-h" '(evil-window-left :which-key "left window")
+ "C-j" '(evil-window-down :which-key "down window")
+ "C-k" '(evil-window-up :which-key "up window")
+ "C-l" '(evil-window-right :which-key "right window")
+)
+
+(general-define-key
 :states '(normal)
 :keymaps 'org-mode-map
 "<return>" 'org-open-at-point
