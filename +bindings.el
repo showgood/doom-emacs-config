@@ -963,6 +963,7 @@
   "bB" '(switch-to-buffer :which-key "Switch to buffer")
   "br" '(rename-buffer :which-key "rename buffer")
   "bk" '(kill-this-buffer :which-key "kill buffer")
+  "bs" '(open-scratch :which-key "open scratch")
 
   "e" '(:ignore t :which-key "Errors")
   "el" '(flycheck-list-errors :which-key "List errors")
@@ -1226,6 +1227,7 @@
  "D" '(dash-at-point :which-key "dash-at-point")
  "+" '(evil-numbers/inc-at-pt :which-key "evil-numbers/inc-at-pt")
  "-" '(evil-numbers/dec-at-pt :which-key "evil-numbers/dec-at-pt")
+ "c" '(counsel-git-grep-complete-line :which-key "counsel-git-grep-complete-line")
 )
 
 ;; # TODO: define them for insert, emacs state
@@ -1362,4 +1364,12 @@
 ",a" '(org-attach-attach :which-key "attach file")
 ",l" '(org-store-link :which-key "store link")
 ",p" '(org-insert-link :which-key "insert link")
+)
+
+(general-define-key
+:states '(normal)
+:keymaps 'org-mode-map
+:prefix ","
+"ji" '(counsel-org-goto :which-key "counsel-org-goto")
+"jI" '(counsel-org-goto-all :which-key "counsel-org-goto-all")
 )
