@@ -1372,4 +1372,31 @@
 :prefix ","
 "ji" '(counsel-org-goto :which-key "counsel-org-goto")
 "jI" '(counsel-org-goto-all :which-key "counsel-org-goto-all")
+"c" '(org-ctrl-c-ctrl-c :which-key "org-ctrl-c-ctrl-c")
+)
+
+(general-define-key
+:states '(normal)
+:keymaps 'slime-mode-indirect-map
+:prefix ","
+"cc" '(slime-compile-defun :which-key "slime-compile-defun")
+)
+
+(general-define-key
+ :states '(normal)
+ :keymaps 'pdf-view-mode-map
+ "g" '(pdf-view-first-page :which-key "first page")
+ "G" '(pdf-view-last-page :which-key "last page")
+ "h" '(pdf-view-previous-page-command :which-key "previous page")
+ "j" (lambda () (interactive) (pdf-view-next-line-or-next-page 5))
+ "k" (lambda () (interactive) (pdf-view-previous-line-or-previous-page 5))
+ "l" '(pdf-view-next-page-command :which-key "next page")
+ "/" '(pdf-occur :which-key "pdf occur")
+ "m" '(pdf-view-position-to-register "position to register")
+ "'" '(pdf-view-jump-to-register :which-key "jump to register")
+ "o" '(pdf-outline :which-key "pdf outline")
+ "f" '(pdf-links-action-perform :which-key "links action")
+ "b" '(pdf-view-midnight-minor-mode :which-key "midnight mode")
+ (kbd "C-o") '(pdf-history-backward :which-key "history backward")
+ (kbd "C-i") '(pdf-history-forward :which-key "history forward")
 )
