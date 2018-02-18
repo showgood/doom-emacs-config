@@ -1360,10 +1360,6 @@
 :states '(normal)
 :keymaps 'org-mode-map
 "<return>" 'org-open-at-point
-",o" '(org-attach-open-in-emacs :which-key "open attachment")
-",a" '(org-attach-attach :which-key "attach file")
-",l" '(org-store-link :which-key "store link")
-",p" '(org-insert-link :which-key "insert link")
 )
 
 (general-define-key
@@ -1373,6 +1369,13 @@
 "ji" '(counsel-org-goto :which-key "counsel-org-goto")
 "jI" '(counsel-org-goto-all :which-key "counsel-org-goto-all")
 "c" '(org-ctrl-c-ctrl-c :which-key "org-ctrl-c-ctrl-c")
+"o" '(org-attach-open-in-emacs :which-key "open attachment")
+"a" '(org-attach-attach :which-key "attach file")
+"l" '(org-store-link :which-key "store link")
+"p" '(org-insert-link :which-key "insert link")
+"e" '(org-export-dispatch :which-key "export")
+"ti" '(org-clock-in :which-key "clock in")
+"to" '(org-clock-out :which-key "clock out")
 )
 
 (general-define-key
@@ -1383,10 +1386,9 @@
 )
 
 (general-define-key
- :states '(normal)
  :keymaps 'pdf-view-mode-map
  "g" '(pdf-view-first-page :which-key "first page")
- "G" '(pdf-view-last-page :which-key "last page")
+ "G" '(noct:pdf-view-goto-page :which-key "go to page")
  "h" '(pdf-view-previous-page-command :which-key "previous page")
  "j" (lambda () (interactive) (pdf-view-next-line-or-next-page 5))
  "k" (lambda () (interactive) (pdf-view-previous-line-or-previous-page 5))
@@ -1397,6 +1399,34 @@
  "o" '(pdf-outline :which-key "pdf outline")
  "f" '(pdf-links-action-perform :which-key "links action")
  "b" '(pdf-view-midnight-minor-mode :which-key "midnight mode")
+ "y" '(noct:pdf-view-page-as-text :which-key "text reflow")
+ "q" '(image-kill-buffer :which-key "quit")
  (kbd "C-o") '(pdf-history-backward :which-key "history backward")
  (kbd "C-i") '(pdf-history-forward :which-key "history forward")
+ (kbd "C-s") '(isearch-forward :which-key "search forward")
+ (kbd "C-r") '(isearch-backward :which-key "search backward")
 )
+
+(general-define-key
+:keymaps 'pdf-occur-buffer-mode-map
+"<return>"  '(pdf-occur-goto-occurrence :which-key "go to occurrence")
+)
+
+(setq-default pdf-view-display-size 'fit-page)
+;; automatically annotate highlights
+(setq pdf-annot-activate-created-annotations t)
+;; turn off cua so copy works
+(add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
+ ;; more fine-grained zooming
+(setq pdf-view-resize-factor 1.1)
+
+;; keyboard shortcuts
+;; (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
+;; (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+;; (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
+;; ;; wait until map is available
+;; (with-eval-after-load "pdf-annot"
+;; (define-key pdf-annot-edit-contents-minor-mode-map (kbd "<return>") 'pdf-annot-edit-contents-commit)
+;; (define-key pdf-annot-edit-contents-minor-mode-map (kbd "<S-return>") 'newline)
+;; ;; save after adding comment
+;; (advice-add 'pdf-annot-edit-contents-commit :after 'bjm/save-buffer-no-args)))

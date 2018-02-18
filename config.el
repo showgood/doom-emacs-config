@@ -7,6 +7,7 @@
 
 ;; === NOTE: load org-pdfview before +myorg====
 (load! org-pdfview)
+(load! pdf-tools-org)
 
 (load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
@@ -519,7 +520,24 @@ In that case, insert the number."
 (setq paperless-capture-directory "~/scan")
 (setq paperless-root-directory "~/docs")
 
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
+(setq inferior-lisp-program "/usr/local/bin/clisp")
+(require 'slime-autoloads)
+;; (require 'slime)
+;; (slime-setup '(slime-fancy slime-tramp slime-asdf))
+;; (slime-setup '(slime-fancy slime-tramp))
+;; (slime-require :swank-listener-hooks)
+
+(require 'lispy)
+(require 'lispyville)
+(add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+(add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+(add-hook 'lispy-mode-hook #'lispyville-mode)
+
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
+(require 'pdf-annot)
 (require 'pdf-tools)
+(require 'pdf-tools-org)
 (pdf-tools-install)
