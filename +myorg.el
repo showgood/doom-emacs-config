@@ -13,6 +13,15 @@
 ;; always use relative path link, very important
 ;; https://emacs.stackexchange.com/questions/16652/change-the-behavior-of-org-mode-auto-expand-relative-path-in-link
 (setq org-link-file-path-type 'relative)
+(defun +org|hook ()
+  (setq line-spacing 1)
+  (visual-line-mode +1)
+  (org-indent-mode +1)
+  ;; show-paren-mode causes problems for org-indent-mode, so disable it
+  (set (make-local-variable 'show-paren-mode) nil)
+)
+
+(add-hook 'org-mode-hook #'+org|hook)
 
 (setq org-link-abbrev-alist
       '(("google" . "http://www.google.com/search?q=")
@@ -118,6 +127,7 @@
     (ipython . t)
     (emacs-lisp . t)
     (scheme . t)
+    (lisp . t)
     ))
 ;;; === end org babel settings }}} ====
 

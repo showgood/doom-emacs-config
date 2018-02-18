@@ -37,10 +37,22 @@
 (package! interleave)
 (package! yankpad)
 (package! elpy)
+
+(package! lispy)
+(package! lispyville)
 ;; (package! ox-clip)
 ;; (package! ox-ipynb)
 (package! evil-org)
 (package! tldr)
+(package! general)
+(package! all-the-icons-dired)
+(package! dired-sidebar)
+(package! visual-regexp)
+(package! visual-regexp-steroids)
+(package! atomic-chrome)
+(package! paperless)
+
+(package! pdf-tools-org :recipe (:fetcher github :repo "pinguim06/pdf-tools-org"))
 
 ;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 

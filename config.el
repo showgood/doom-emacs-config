@@ -1,16 +1,21 @@
 ;; -*- origami-fold-style: triple-braces -*-
 
-;; (setq debug-on-error t)
+(setq debug-on-error nil)
 (require 'counsel)
+(require 'general)
+(general-evil-setup t)
 
 ;; === NOTE: load org-pdfview before +myorg====
 (load! org-pdfview)
+(load! pdf-tools-org)
 
-(load! +bindings)  ; my key bindings
 (load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
+
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/modules/private/showgood/evil-collection/"))
+;; (with-eval-after-load 'dired (require 'evil-collection-dired) (evil-collection-dired-setup))
 
 ;; ==== general settings {{{ ====
 ;; it’s much easier to move around lines based on how they are
@@ -30,8 +35,6 @@
 
 ;; https://writequit.org/articles/working-with-logs-in-emacs.html
 (setq auto-revert-tail-mode t)
-
-(setq debug-on-error t)
 
 ;; (set-frame-font "fira code:pixelsize=16:foundry=unknown:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
@@ -66,10 +69,23 @@
 ;; ==== elpy settings {{{ ====
 (require 'elpy)
 (elpy-enable)
-(setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt")
 
-(setq elpy-rpc-python-command "~/anaconda2/bin/python")
+;; NOTE: do NOT set to jupyter, otherwise ob-ipython would break
+;; set to ipython
+;; (setq python-shell-interpreter "jupyter"
+;;       python-shell-interpreter-args "console --simple-prompt")
+
+(when (executable-find "ipython")
+(setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i --simple-prompt --no-color-info"
+        python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+        python-shell-prompt-block-regexp "\\.\\.\\.\\.: "
+        python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+        python-shell-completion-setup-code
+        "from IPython.core.completerlib import module_completion"
+        python-shell-completion-string-code
+        "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
+(setq elpy-rpc-python-command (format "/Users/%s/anaconda2/bin/python" user-login-name))
 
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
@@ -326,7 +342,6 @@
 
 (autoload 'dash-at-point "dash-at-point"
           "search the word at point with dash." t nil)
-(global-set-key "\C-cd" 'dash-at-point)
 
 ;; ==== workspace settings {{{ ====
 (defvar doom-default-workspace-name "main"
@@ -356,25 +371,6 @@
   (setq-local global-hl-line-mode nil)
   (setq-local beacon-mode nil)
   (setq term-buffer-maximum-size 0)
-  (define-key term-raw-map (kbd "<escape>") 'evil-normal-state)
-  (define-key term-raw-map (kbd "C-;") 'evil-normal-state)
-
-  ;; todo: needs more work for this to work
-  ;; (define-key term-raw-map (kbd "jf") 'enter-evil-normal)
-  ;; todo: not working due to c-y is defined globally
-  ;; (define-key term-raw-map (kbd "c-y") 'term-paste)
-
-  (define-key term-raw-map (kbd "C-s") 'counsel-grep-or-swiper)
-  (define-key term-raw-map (kbd "M-v") 'me/paste-in-term-mode)
-  ;; note: automatically switch to evil-emacs-state
-  ;; after press *p* in normal mode which seems the case most of the time
-  (evil-define-key 'normal term-raw-map
-    ;; "p" 'term-paste
-    "p" 'me/paste-in-term-mode
-    "i" 'evil-emacs-state
-    "i" 'evil-emacs-state
-    "a" 'evil-emacs-state
-    "a" 'evil-emacs-state)
 )
 
 (add-hook 'term-mode-hook #'setup-my-term-mode)
@@ -397,6 +393,33 @@
 ;; need this to complete something like berlin-crazy-cold-jupiter
 ;; or fifteen_mountain_massachusetts_nineteen
 (setq company-dabbrev-char-regexp "\\(\\sw\\|\\s_\\|_\\|-\\)")
+
+;; https://oremacs.com/2017/12/27/company-numbers/
+(setq company-show-numbers t)
+
+(defun ora-company-number ()
+  "Forward to `company-complete-number'.
+Unless the number is potentially part of the candidate.
+In that case, insert the number."
+  (interactive)
+  (let* ((k (this-command-keys))
+         (re (concat "^" company-prefix k)))
+    (if (cl-find-if (lambda (s) (string-match re s))
+                    company-candidates)
+        (self-insert-command 1)
+      (company-complete-number
+       (if (equal k "0")
+           10
+         (string-to-number k))))))
+
+(let ((map company-active-map))
+  (mapc (lambda (x) (define-key map (format "%d" x) 'ora-company-number))
+        (number-sequence 0 9))
+  (define-key map " " (lambda ()
+                        (interactive)
+                        (company-abort)
+                        (self-insert-command 1)))
+  (define-key map (kbd "<return>") nil))
 ;; ==== END auto-complete settings }}} ====
 
 (require 'fancy-narrow)
@@ -469,9 +492,52 @@
 (setq yankpad-file (concat +xwu-dir "yankpad.org"))
 
 (require 'tldr)
+(require 'dired-sidebar)
+(require 'all-the-icons-dired)
+
+(all-the-icons-dired-mode)
+(setq dired-sidebar-subtree-line-prefix " .")
+
+(when IS-MAC
+    (if (display-graphic-p)
+        (setq dired-sidebar-theme 'icons)
+      (setq dired-sidebar-theme 'nerd)))
+
+(load! dired+)
+(load! +bindings)  ; my key bindings
+;; (diredp-find-file-reuse-dir-buffer t)
+;; make dired reuse buffer when change directory
+(diredp-make-find-file-keys-reuse-dirs)
+
+(require 'visual-regexp)
+(require 'visual-regexp-steroids)
+
+(require 'atomic-chrome)
+(atomic-chrome-start-server)
+
+(require 'paperless)
+
+(setq paperless-capture-directory "~/scan")
+(setq paperless-root-directory "~/docs")
+
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
+(setq inferior-lisp-program "/usr/local/bin/clisp")
+(require 'slime-autoloads)
+;; (require 'slime)
+;; (slime-setup '(slime-fancy slime-tramp slime-asdf))
+;; (slime-setup '(slime-fancy slime-tramp))
+;; (slime-require :swank-listener-hooks)
+
+(require 'lispy)
+(require 'lispyville)
+(add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+(add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+(add-hook 'lispy-mode-hook #'lispyville-mode)
 
 ;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
 (require 'pdf-occur)
+(require 'pdf-annot)
 (require 'pdf-tools)
+(require 'pdf-tools-org)
 (pdf-tools-install)
-
