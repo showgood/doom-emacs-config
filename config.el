@@ -1,15 +1,8 @@
 ;; -*- origami-fold-style: triple-braces -*-
 
-(setq debug-on-error nil)
+;; (setq debug-on-error t)
 (require 'counsel)
-(require 'general)
-(general-evil-setup t)
 
-;; === NOTE: load org-pdfview before +myorg====
-(load! org-pdfview)
-(load! pdf-tools-org)
-
-(load! +myorg)  ; org configs
 (load! +alias)  ; emacs alias
 (load! +commands)  ; my custom ex commands
 (load! +myabbrev)
@@ -21,7 +14,7 @@
 ;; it’s much easier to move around lines based on how they are
 ;; displayed, rather than the actual line. this helps a ton with
 ;; long log file lines that may be wrapped:
-(setq line-move-visual t)
+;; (setq line-move-visual t)
 
 ;; i don't need linenum most of the time
 ;; hopefully can speed up a bit for large file
@@ -30,20 +23,7 @@
  ; proper line wrapping
 (global-visual-line-mode 1)
 
-;; allow to select from kill-ring history while in minibuffer
-(setq enable-recursive-minibuffers t)
-
-;; https://writequit.org/articles/working-with-logs-in-emacs.html
-(setq auto-revert-tail-mode t)
-
 ;; (set-frame-font "fira code:pixelsize=16:foundry=unknown:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
-
-;; those settings are useful, but already set by doom-core
-;; keep here for future note
-;; http://sachachua.com/blog/2017/04/emacs-pasting-with-the-mouse-without-moving-the-point-mouse-yank-at-point/
-;; (setq mouse-yank-at-point t)
-;; save whatever’s in the current (system) clipboard before replacing it with the emacs’ text.
-;; (setq save-interprogram-paste-before-kill t)
 
 ;; ==== end general settings }}} ====
 
@@ -52,8 +32,6 @@
 (setq-default evil-escape-key-sequence "jf")
 (fset 'evil-visual-update-x-selection 'ignore)
 
-(evil-add-command-properties #'rtags-find-symbol-at-point :jump t)
-(evil-add-command-properties #'rtags-find-references-at-point :jump t)
 (evil-add-command-properties #'counsel-imenu :jump t)
 ;; ==== end evil settings }}} ====
 
@@ -65,32 +43,6 @@
 (global-origami-mode 1)
 
 ;; ==== END frequently used packages }}} ====
-
-;; ==== elpy settings {{{ ====
-(require 'elpy)
-(elpy-enable)
-
-;; NOTE: do NOT set to jupyter, otherwise ob-ipython would break
-;; set to ipython
-;; (setq python-shell-interpreter "jupyter"
-;;       python-shell-interpreter-args "console --simple-prompt")
-
-(when (executable-find "ipython")
-(setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "-i --simple-prompt --no-color-info"
-        python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-        python-shell-prompt-block-regexp "\\.\\.\\.\\.: "
-        python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-        python-shell-completion-setup-code
-        "from IPython.core.completerlib import module_completion"
-        python-shell-completion-string-code
-        "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
-(setq elpy-rpc-python-command (format "/Users/%s/anaconda2/bin/python" user-login-name))
-
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-;; ==== END elpy settings }}} ====
 
 (require 'vlf)
 (require 'vlf-setup)
@@ -136,13 +88,6 @@
         (append (list '+xwu-snippets-dir)
                 (delq 'yas-installed-snippets-dir yas-snippet-dirs))))
 
-;; ==== bookmark settings {{{ ====
-(require 'bookmark+)
-;; fix the error that bmkp-info-cp is void
-;; (defalias 'bmkp-info-cp 'bmkp-info-node-name-cp)
-
-;; ==== end bookmark settings }}} ====
-
 ;; settings needed for irony-mode, disabled it since it cause slowness
 ;; (setq irony-server-install-prefix "~/tools/irony-server")
 (setq irony-cdb-search-directory-list '("." "src" "build"))
@@ -170,7 +115,6 @@
 (setq rtags-socket-file (concat (substitute-in-file-name "$HOME/") ".rdm"))
 ;; (setq rtags-path "/opt/bb/bin")
 ;; (setq rtags-completions-enabled t)
-
 
 ;; (require 'company-rtags)
 ;; (eval-after-load 'company
@@ -228,15 +172,6 @@
 (setq tramp-inline-compress-start-size 10000000)
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
-;; https://www.gnu.org/software/emacs/manual/html_node/tramp/password-handling.html
-;; store the password for a period of time, helpful in the tramp case
-(setq password-cache-expiry nil)
-
-;; http://emacs.stackexchange.com/questions/15208/using-tramp-for-logs?rq=1
-;; auto-revert-tail-mode is great, but it has its limits. therefore
-;; i prefer to use an asynchronous shell command. open the remote
-;; directory in dired, position the cursor to the file you want to
-;; watch, and apply ! tail -f * &.
 
 ;; ==== ivy settings {{{ ====
 (setq ivy-count-format "(%d/%d) ")
@@ -299,64 +234,8 @@
 (csetq ediff-diff-options "-w")
 ;; ==== end ediff settings }}} ====
 
-;; ==== dired settings {{{ ====
-;; http://oremacs.com/2015/01/13/dired-options/
-;;http://pragmaticemacs.com/emacs/dired-human-readable-sizes-and-sort-by-size/
-;; not working for mac
-;; (setq dired-listing-switches "-lah")
-
-;; this --group-directories-first doesn't work on mac os natively,
-;; also -g option doesn't work
-;; (setq dired-listing-switches "-lagh1v --group-directories-first")
-(setq dired-recursive-deletes 'always)
-
-;; when using find-dired, also list the result with size etc
-;; (setq find-ls-option '("-print0 | xargs -0 ls -alhd" . ""))
-(setq find-ls-option '("-print0 | xargs -0 ls -alh" . ""))
-
-;;http://irreal.org/blog/?p=3341
-;; display file details for dired
-;; this needs to happen before loading dired+
-(setq diredp-hide-details-initially-flag nil)
-
-;; delete file permanently, do not move to trash bin
-(setq delete-by-moving-to-trash nil)
-
-;; https://www.reddit.com/r/emacs/comments/1493oa/emacsmovies_season_2_dired/
-;; make df output in dired buffers easier to read
-(setq dired-free-space-args "-pm")
-
-;; try suggesting dired targets
-(setq dired-dwim-target t)
-
-;; understand .zip the way it does tarballs, letting the z key decompress it:
-;; handle zip compression
-(eval-after-load "dired-aux"
-  '(add-to-list 'dired-compress-file-suffixes
-                '("\\.zip\\'" ".zip" "unzip")))
-;; ==== end dired settings }}} ====
-
-;; set this so search is performed on all buffers,
-;; not just current buffer
-;; (setq avy-all-windows t)
-
 (autoload 'dash-at-point "dash-at-point"
           "search the word at point with dash." t nil)
-
-;; ==== workspace settings {{{ ====
-(defvar doom-default-workspace-name "main"
-  " name of the default layout.")
-
-(defvar doom-last-selected-workspace doom-default-workspace-name
-  "previously selected layout.")
-
-(defun +workspace/save-name(name frame)
-  (setq doom-last-selected-workspace persp-last-persp-name)
-  (message (format "persp-last: %s" persp-last-persp-name))
-)
-
-(add-hook 'persp-before-switch-functions #'+workspace/save-name)
-;; ==== end workspace settings }}} ====
 
 ;; ==== term mode settings {{{ ====
 (setq multi-term-dedicated-select-after-open-p t)
@@ -425,9 +304,6 @@ In that case, insert the number."
 (require 'fancy-narrow)
 (require 'evil-numbers)
 
-;; i want to switch window across frame
-(setq aw-scope 'global)
-
 (defun my-irony-mode-hook ()
   (define-key irony-mode-map
       [remap completion-at-point] 'counsel-irony)
@@ -438,17 +314,7 @@ In that case, insert the number."
 (require 'evil-magit)
 (require 'engine-mode)
 
-(require 'ob-ipython)
 (require 'lentic)
-;; (require 'clean-aident-mode)
-
-;; ==== clang-format settings {{{ ====
-;; (require 'clang-format)
-;; (global-set-key (kbd "c-c i") 'clang-format-region)
-;; (global-set-key (kbd "c-c u") 'clang-format-buffer)
-
-;; (setq clang-format-style-option "llvm")
-;; ==== end clang-format settings }}} ====
 
 ;; @see https://bitbucket.org/lyro/evil/issue/511/let-certain-minor-modes-key-bindings
 (eval-after-load 'git-timemachine
@@ -475,39 +341,12 @@ In that case, insert the number."
 ;; maximize emacs upon startup
 (toggle-frame-maximized)
 
-;; ==== smooth workflow for capturing screenshot into org-mode {{{ ====
-(require 'org-attach-screenshot)
-
-(setq org-attach-screenshot-command-line
-      "screencapture -i %f")
-
-(setq org-attach-screenshot-dirfunction
-		(lambda ()
-		  (concat +org-dir "/files/")))
-;; ==== END smooth workflow for capturing screenshot into org-mode }}} ====
-
-(require 'interleave)
-
 (require 'yankpad)
 (setq yankpad-file (concat +xwu-dir "yankpad.org"))
 
 (require 'tldr)
-(require 'dired-sidebar)
-(require 'all-the-icons-dired)
 
-(all-the-icons-dired-mode)
-(setq dired-sidebar-subtree-line-prefix " .")
-
-(when IS-MAC
-    (if (display-graphic-p)
-        (setq dired-sidebar-theme 'icons)
-      (setq dired-sidebar-theme 'nerd)))
-
-(load! dired+)
 (load! +bindings)  ; my key bindings
-;; (diredp-find-file-reuse-dir-buffer t)
-;; make dired reuse buffer when change directory
-(diredp-make-find-file-keys-reuse-dirs)
 
 (require 'visual-regexp)
 (require 'visual-regexp-steroids)
@@ -534,10 +373,3 @@ In that case, insert the number."
 (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
 (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
 (add-hook 'lispy-mode-hook #'lispyville-mode)
-
-;; ==== NOTE: put this as last since (pdf-tools-install) throws error for some reason==
-(require 'pdf-occur)
-(require 'pdf-annot)
-(require 'pdf-tools)
-(require 'pdf-tools-org)
-(pdf-tools-install)

@@ -1,8 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
 
-(package! rtags)
-(package! bookmark+)
-(package! dired+)
 (package! vlf)
 (package! engine-mode)
 (package! eacl)
@@ -15,46 +12,27 @@
 (package! hl-anything)
 (package! evil-replace-with-register)
 (package! logview)
-(package! ob-ipython)
 (package! origami)
 (package! lentic)
-(package! clean-aindent-mode)
 (package! nov)
-(package! imenu-anywhere)
 (package! move-text)
-(package! pcre2el)
 (package! evil-visual-mark-mode)
-(package! auto-yasnippet)
 (package! wand)
 (package! deft)
-(package! org-attach-screenshot)
 (package! suggest)
-(package! interleave)
 (package! counsel-etags)
 (package! counsel-dash)
-(package! ox-gfm)
-(package! pdf-tools)
-(package! interleave)
 (package! yankpad)
-(package! elpy)
 
 (package! lispy)
 (package! lispyville)
 ;; (package! ox-clip)
 ;; (package! ox-ipynb)
-(package! evil-org)
 (package! tldr)
-(package! general)
-(package! all-the-icons-dired)
-(package! dired-sidebar)
 (package! visual-regexp)
 (package! visual-regexp-steroids)
 (package! atomic-chrome)
 (package! paperless)
-
-(package! pdf-tools-org :recipe (:fetcher github :repo "pinguim06/pdf-tools-org"))
-
-;; (package! org-pdfview :recipe (:fetcher github :repo "markus1189/org-pdfview"))
 
 ;; (package! solarized-theme)
 ;; (package! color-theme-sanityinc-tomorrow)
@@ -62,7 +40,6 @@
 ;; (package! monokai-theme)
 ;; https://github.com/bmag/emacs-purpose
 
-;; https://github.com/proofit404/anaconda-mode
 ;; https://github.com/jorgenschaefer/elpy
 
 ;; https://github.com/abo-abo/make-it-so
@@ -92,3 +69,6 @@
 
 ;; couldn't get it working properly on mac
 ;; (package! camcorder)
+
+;; elpy seems better suits me
+;; https://github.com/proofit404/anaconda-mode

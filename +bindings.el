@@ -911,14 +911,6 @@
 ;; (define-key ivy-minibuffer-map (kbd "M-y") 'counsel-yank-pop)
 ;; (define-key evil-ex-map "\M-y" #'counsel-yank-pop)
 
-(evil-define-key 'normal elpy-mode-map
-  (kbd ",d") 'elpy-goto-definition
-  (kbd ",D") 'elpy-doc
-  (kbd ",r") 'xref-find-references
-  (kbd ",m") 'elpy-multiedit
-  (kbd ",f") 'elpy-format-code
-  (kbd ",M") 'elpy-multiedit-stop)
-
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
 ;; (evil-define-key 'insert term-raw-map (kbd "C-c C-z") 'term-stop-subjob)
 
@@ -943,7 +935,7 @@
 
 (load! myhydra)
 
-(general-override-mode)
+;; (general-override-mode)
 (general-define-key
  :states '(normal visual insert emacs)
  :keymaps 'override
@@ -1011,7 +1003,8 @@
   "jI" '(imenu-anywhere :which-key "Imenu across buffers")
   "jm" '(evil-show-marks :which-key "show marks")
   "jr" '(evil-show-registers :which-key "show registers")
-  "jo" '(+jump/online-select :which-key "Online providers")
+  "jo" '(+jump/online :which-key "online search")
+  "js" '(+jump/online-select :which-key "Online providers")
 
   "l" '(:ignore t :which-key "workspace/layout")
   "ln" '(+workspace/me/new :which-key "New workspace")
@@ -1264,19 +1257,6 @@
 
 (general-define-key
  :prefix ","
- :states '(normal visual)
- :keymaps 'elpy-mode-map
- "d" '(elpy-goto-definition :which-key "elpy-goto-definition")
- "D" '(elpy-doc :which-key "elpy-doc")
- "f" '(elpy-format-code :which-key "elpy-format-code")
- "r" '(xref-find-references :which-key "xref-find-references")
- "m" '(elpy-multiedit :which-key "elpy-multiedit")
- "M" '(elpy-multiedit-stop :which-key "elpy-multiedit-stop")
- "t" '(elpy-test :which-key "elpy-test")
-)
-
-(general-define-key
- :prefix ","
  :states '(normal)
  :keymaps 'nxml-mode-map
  "xp" '(nxml-where :which-key "xpath")
@@ -1341,92 +1321,12 @@
 ;;  :textobj "I" #'evil-indent-plus-i-indent-up      #'evil-indent-plus-a-indent-up
 ;;  :textobj "J" #'evil-indent-plus-i-indent-up-down #'evil-indent-plus-a-indent-up-down
 
-;; https://oremacs.com/2015/01/21/dired-shortcuts/
-(general-define-key
-:states '(normal visual insert emacs)
-:keymaps 'dired-mode-map
-:prefix ","
-:non-normal-prefix "M-SPC"
-"f" '(find-name-dired :which-key "find name dired")
-
-;; this will go to parent folder using existing dired buffer
-"a" '(lambda ()
-      (interactive)
-      (find-alternate-file "..") :which-key "go to parent folder")
-)
-
-(general-define-key
-:states '(normal visual insert emacs)
-:keymaps 'dired-mode-map
- "C-h" '(evil-window-left :which-key "left window")
- "C-j" '(evil-window-down :which-key "down window")
- "C-k" '(evil-window-up :which-key "up window")
- "C-l" '(evil-window-right :which-key "right window")
-)
-
-(general-define-key
-:states '(normal)
-:keymaps 'org-mode-map
-"<return>" 'org-open-at-point
-)
-
-(general-define-key
-:states '(normal)
-:keymaps 'org-mode-map
-:prefix ","
-"ji" '(counsel-org-goto :which-key "counsel-org-goto")
-"jI" '(counsel-org-goto-all :which-key "counsel-org-goto-all")
-"c" '(org-ctrl-c-ctrl-c :which-key "org-ctrl-c-ctrl-c")
-"o" '(org-attach-open-in-emacs :which-key "open attachment")
-"a" '(org-attach-attach :which-key "attach file")
-"l" '(org-store-link :which-key "store link")
-"p" '(org-insert-link :which-key "insert link")
-"e" '(org-export-dispatch :which-key "export")
-"ti" '(org-clock-in :which-key "clock in")
-"to" '(org-clock-out :which-key "clock out")
-)
-
 (general-define-key
 :states '(normal)
 :keymaps 'slime-mode-indirect-map
 :prefix ","
 "cc" '(slime-compile-defun :which-key "slime-compile-defun")
 )
-
-(general-define-key
- :keymaps 'pdf-view-mode-map
- "g" '(pdf-view-first-page :which-key "first page")
- "G" '(noct:pdf-view-goto-page :which-key "go to page")
- "h" '(pdf-view-previous-page-command :which-key "previous page")
- "j" (lambda () (interactive) (pdf-view-next-line-or-next-page 5))
- "k" (lambda () (interactive) (pdf-view-previous-line-or-previous-page 5))
- "l" '(pdf-view-next-page-command :which-key "next page")
- "/" '(pdf-occur :which-key "pdf occur")
- "m" '(pdf-view-position-to-register "position to register")
- "'" '(pdf-view-jump-to-register :which-key "jump to register")
- "o" '(pdf-outline :which-key "pdf outline")
- "f" '(pdf-links-action-perform :which-key "links action")
- "b" '(pdf-view-midnight-minor-mode :which-key "midnight mode")
- "y" '(noct:pdf-view-page-as-text :which-key "text reflow")
- "q" '(image-kill-buffer :which-key "quit")
- (kbd "C-o") '(pdf-history-backward :which-key "history backward")
- (kbd "C-i") '(pdf-history-forward :which-key "history forward")
- (kbd "C-s") '(isearch-forward :which-key "search forward")
- (kbd "C-r") '(isearch-backward :which-key "search backward")
-)
-
-(general-define-key
-:keymaps 'pdf-occur-buffer-mode-map
-"<return>"  '(pdf-occur-goto-occurrence :which-key "go to occurrence")
-)
-
-(setq-default pdf-view-display-size 'fit-page)
-;; automatically annotate highlights
-(setq pdf-annot-activate-created-annotations t)
-;; turn off cua so copy works
-(add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
- ;; more fine-grained zooming
-(setq pdf-view-resize-factor 1.1)
 
 ;; keyboard shortcuts
 ;; (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)

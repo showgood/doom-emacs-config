@@ -176,10 +176,10 @@ Repeated invocations toggle between the two most recently open buffers."
 ;; +workspace/new does NOT take the name from user input,
 ;; this solve that issue
 ;;;###autoload
-(defun +workspace/me/new (name)
-    (interactive "sEnter workspace name: ")
-    (+workspace/new name)
-)
+;; (defun +workspace/me/new (name)
+;;     (interactive "sEnter workspace name: ")
+;;     (+workspace/new name)
+;; )
 
 ;; https://emacs.stackexchange.com/questions/5371/how-to-change-emacs-windows-from-vertical-split-to-horizontal-split
 ;;;###autoload
@@ -198,13 +198,13 @@ Repeated invocations toggle between the two most recently open buffers."
         (switch-to-buffer (other-buffer))))))
 
 ;;;###autoload
-(defun doom/jump-to-last-workspace ()
-  "Open the previously selected workspace, if it exists."
-  (interactive)
-  (unless (eq 'non-existent
-              (gethash doom-last-selected-workspace
-                       *persp-hash* 'non-existent))
-    (persp-switch doom-last-selected-workspace)))
+;; (defun doom/jump-to-last-workspace ()
+;;   "Open the previously selected workspace, if it exists."
+;;   (interactive)
+;;   (unless (eq 'non-existent
+;;               (gethash doom-last-selected-workspace
+;;                        *persp-hash* 'non-existent))
+;;     (persp-switch doom-last-selected-workspace)))
 
 ;;;###autoload
 (defun xml-format ()
