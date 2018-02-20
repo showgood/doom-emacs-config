@@ -1187,22 +1187,6 @@
 )
 
 (general-define-key
- :states '(normal)
- :keymaps 'term-raw-map
- "p" '(me/paste-in-term-mode :which-key "paste")
- "i" '(evil-emacs-state :which-key "insert")
- "a" '(evil-emacs-state :which-key "insert")
- "C-y" '(me/paste-in-term-mode :which-key "paste")
-)
-
-(general-define-key
- :states '(insert emacs)
- :keymaps 'term-raw-map
- "C-;" '(evil-normal-state :which-key "escape")
- "C-y" '(me/paste-in-term-mode :which-key "paste")
-)
-
-(general-define-key
  :states '(insert emacs)
  :keymaps 'yas-minor-mode-map
  "<tab>" yas-maybe-expand
@@ -1212,14 +1196,6 @@
  :states '(visual)
  :keymaps 'yas-minor-mode-map
  "<tab>" '(+snippets/expand-on-region :which-key "expand on region")
-)
-
-(general-define-key
- :states '(normal)
- :keymaps 'web-mode-map
- "<tab>" '(web-mode-fold-or-unfold :which-key "fold")
- "<backtab>" '(web-mode-element-children-fold-or-unfold :which-key "fold child")
- ",e" '(web-mode-element-content-select :which-key "mark element content")
 )
 
 (general-define-key
