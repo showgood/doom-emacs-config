@@ -256,8 +256,10 @@ In that case, insert the number."
   (define-key map (kbd "<return>") nil))
 ;; ==== END auto-complete settings }}} ====
 
-(require 'fancy-narrow)
-;; (require 'evil-numbers)
+(use-package fancy-narrow
+  :commands (fancy-narrow-to-region
+             fancy-widen)
+)
 
 ;; (defun my-irony-mode-hook ()
 ;;   (define-key irony-mode-map
@@ -266,7 +268,7 @@ In that case, insert the number."
 ;;       [remap complete-symbol] 'counsel-irony))
 ;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
 
-(require 'engine-mode)
+;; (require 'engine-mode)
 
 ;; (require 'lentic)
 
@@ -637,23 +639,23 @@ In that case, insert the number."
 ;; maximize emacs upon startup
 (toggle-frame-maximized)
 
-(require 'yankpad)
-(setq yankpad-file (concat +xwu-dir "yankpad.org"))
-
-(require 'tldr)
+(use-package yankpad
+  :commands (yankpad-expand)
+  :config
+  (setq yankpad-file (concat +xwu-dir "yankpad.org"))
+)
 
 (load! +bindings)  ; my key bindings
-
-(require 'visual-regexp)
-(require 'visual-regexp-steroids)
 
 (require 'atomic-chrome)
 (atomic-chrome-start-server)
 
-(require 'paperless)
-
-(setq paperless-capture-directory "~/scan")
-(setq paperless-root-directory "~/docs")
+(use-package paperless
+  :commands (paperless)
+  :config
+  (setq paperless-capture-directory "~/scan"
+        paperless-root-directory "~/docs")
+)
 
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; (setq inferior-lisp-program "/usr/local/bin/sbcl")
