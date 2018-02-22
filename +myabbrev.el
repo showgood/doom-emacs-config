@@ -1,5 +1,3 @@
-;;; private/xwu157/+myabbrev.el -*- lexical-binding: t; -*-
-
 (clear-abbrev-table global-abbrev-table)
 
 ;; common auto correction like abbrevs
@@ -13,8 +11,6 @@
   ("namepsace" "namespace")
   ("inlcude" "include")
   ("ustd" "using namespace std;")
-  ;; ("td" "TODO:")
-  ("fxm" "FIXME:")
 
   ;; emacs regex
   ("8d" "\\([0-9]+?\\)")

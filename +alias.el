@@ -1,5 +1,3 @@
-;;; private/xwu157/+alias.el -*- lexical-binding: t; -*-
-
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'lml 'list-matching-lines)
 (defalias 'dml 'delete-matching-lines)

@@ -19,15 +19,15 @@
 (package! wand)
 (package! deft)
 (package! suggest)
-(package! counsel-etags)
-(package! counsel-dash)
+;; (package! counsel-etags)
+;; (package! counsel-dash)
 (package! yankpad)
 
 (package! esup)
 
 
-(package! lispy)
-(package! lispyville)
+;; (package! lispy)
+;; (package! lispyville)
 ;; (package! ox-clip)
 ;; (package! ox-ipynb)
 (package! tldr)

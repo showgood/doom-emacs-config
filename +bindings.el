@@ -1152,21 +1152,6 @@
 ;; :nvime "<f7> s" #'counsel-rg
 )
 
-;; ==== insert map keybindings {{{ ====
-(general-define-key
- :states '(insert emacs)
- "C-<tab>" '(aya-expand :which-key "aya-expand")
-)
-;; ==== END insert map keybindings }}} ====
-
-;; ==== normal/visual map keybindings {{{ ====
-(general-define-key
- :states '(normal visual)
- "C-<tab>" '(aya-create :which-key "aya-create")
-)
-
-;; ==== END normal/visual map keybindings }}} ====
-
 (general-define-key
  :states '(normal visual)
  "gc" '(evil-commentary :which-key "evil commentary")
@@ -1177,6 +1162,7 @@
  "gp" '(+evil/reselect-paste :which-key "+evil/reselect-paste")
  "gr" '(+eval:region :which-key "+eval:region")
  "gR" '(+eval/buffer :which-key "+eval/buffer")
+
 ;;  :v  "gR" #'+eval:replace-region
 )
 
@@ -1184,18 +1170,6 @@
  :states '(visual)
  "v" '(er/expand-region :which-key "expand region")
  "V" '(er/contract-region :which-key "contract region")
-)
-
-(general-define-key
- :states '(insert emacs)
- :keymaps 'yas-minor-mode-map
- "<tab>" yas-maybe-expand
-)
-
-(general-define-key
- :states '(visual)
- :keymaps 'yas-minor-mode-map
- "<tab>" '(+snippets/expand-on-region :which-key "expand on region")
 )
 
 (general-define-key
