@@ -978,7 +978,7 @@
   "fn" '(cp-filename-of-current-buffer :which-key "yank filename only")
   "fp" '(+hlissner/yank-buffer-filename :which-key "yank file full path")
   "fo" '(hydra-folding/body :which-key "hydra folding")
-  "fr" '(ivy-recentf :which-key "recent file")
+  "fr" '(counsel-recentf :which-key "recent file")
 
   "g" '(:ignore t :which-key "Git")
   "gs" '(magit-status :which-key "Git status")

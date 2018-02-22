@@ -9,22 +9,11 @@
 ;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/modules/private/showgood/evil-collection/"))
 ;; (with-eval-after-load 'dired (require 'evil-collection-dired) (evil-collection-dired-setup))
 
-;; ==== general settings {{{ ====
-
  ; proper line wrapping
 (global-visual-line-mode 1)
 
-;; (set-frame-font "fira code:pixelsize=16:foundry=unknown:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
-
-;; ==== end general settings }}} ====
-
-;; ==== evil settings {{{ ====
-;; very important to me
-;; (setq-default evil-escape-key-sequence "jf")
 (fset 'evil-visual-update-x-selection 'ignore)
-
 (evil-add-command-properties #'counsel-imenu :jump t)
-;; ==== end evil settings }}} ====
 
 ;; ==== frequently used packages {{{ ====
 (require 'hl-anything)
@@ -32,7 +21,6 @@
 
 (require 'origami)
 (global-origami-mode 1)
-
 ;; ==== END frequently used packages }}} ====
 
 (require 'vlf)
@@ -45,12 +33,6 @@
 (setq epa-file-encrypt-to user-mail-address
       auth-sources (list (expand-file-name ".authinfo.gpg" +xwu-dir))
       +doom-modeline-buffer-file-name-style 'relative-from-project)
-
-(defun +hlissner*no-authinfo-for-tramp (orig-fn &rest args)
-  "don't look into .authinfo for local sudo tramp buffers."
-  (let ((auth-sources (if (equal tramp-current-method "sudo") nil auth-sources)))
-    (apply orig-fn args)))
-(advice-add #'tramp-read-passwd :around #'+hlissner*no-authinfo-for-tramp)
 
 (after! smartparens
   ;; auto-close more conservatively
@@ -137,20 +119,11 @@
 
 (add-hook 'c-mode-common-hook 'bb-c-mode)
 
-(defun eshell/clear ()
-  "clear the eshell buffer."
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input)))
-
 (setq eshell-aliases-file (concat +xwu-dir "eshell_alias"))
 
 ;; support large file size
 (setq tramp-inline-compress-start-size 10000000)
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-
-(load! toolkit-tramp)
-(require 'toolkit-tramp)
 
 ;; http://emacs.stackexchange.com/questions/27/how-can-i-use-my-local-emacs-client-as-the-editor-for-remote-machines-i-access
 ;; (require 'with-editor)
@@ -187,15 +160,7 @@
              fancy-widen)
 )
 
-;; (defun my-irony-mode-hook ()
-;;   (define-key irony-mode-map
-;;       [remap completion-at-point] 'counsel-irony)
-;;   (define-key irony-mode-map
-;;       [remap complete-symbol] 'counsel-irony))
-;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-
 ;; (require 'engine-mode)
-
 ;; (require 'lentic)
 
 ;; ==== deft settings {{{ ====
@@ -217,8 +182,6 @@
   :commands (tldr)
 )
 
-(load! +bindings)  ; my key bindings
-
 (use-package visual-regexp
   :commands (vr/query-replace))
 
@@ -237,72 +200,6 @@
 ;; (slime-setup '(slime-fancy slime-tramp))
 ;; (slime-require :swank-listener-hooks)
 
-;; (require 'lispy)
-;; (require 'lispyville)
-;; (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
-;; (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
-;; (add-hook 'lispy-mode-hook #'lispyville-mode)
-;; -*- origami-fold-style: triple-braces -*-
-
-;; (set-frame-font "fira code:pixelsize=16:foundry=unknown:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
-
-;; ==== end general settings }}} ====
-
-;; ==== evil settings {{{ ====
-;; very important to me
-(fset 'evil-visual-update-x-selection 'ignore)
-
-(evil-add-command-properties #'counsel-imenu :jump t)
-;; ==== end evil settings }}} ====
-
-;; ==== flycheck settings {{{ ====
-;; (setq flycheck-c/c++-clang-executable "/opt/bb/bin/clang++")
-(setq flycheck-c/c++-clang-executable "/usr/local/opt/llvm/bin/clang++")
-(setq flycheck-clang-args '("-m32" "-Dlint" "-D_REENTRANT"
-      "-D_THREAD_SAFE" "-DBB_THREADED" "-DBSL_OVERRIDES_STD"))
-
-;; (defun my-flycheck-setup ()
-;;   (flycheck-select-checker 'c/c++-clang))
-;; (add-hook 'c-mode-common-hook #'my-flycheck-setup)
-
-; this does not work, not sure why
-;; (require 'flycheck-rtags)
-;; ;; http://syamajala.github.io/c-ide.html
-;; (add-hook 'c++-mode-hook 'flycheck-mode)
-;; (add-hook 'c-mode-hook 'flycheck-mode)
-
-;; (defun my-flycheck-rtags-setup ()
-;;   (flycheck-select-checker 'rtags)
-;;   (setq-local flycheck-highlighting-mode nil) ;; rtags creates more accurate overlays.
-;;   (setq-local flycheck-check-syntax-automatically nil))
-;; ;; c-mode-common-hook is also called by c++-mode
-;; (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
-
-;; ==== flycheck settings }}} ====
-
-;; http://emacs.stackexchange.com/questions/27/how-can-i-use-my-local-emacs-client-as-the-editor-for-remote-machines-i-access
-;; (require 'with-editor)
-
-;; (add-hook 'shell-mode-hook  'with-editor-export-editor)
-;; (add-hook 'term-mode-hook   'with-editor-export-editor)
-;; (add-hook 'eshell-mode-hook 'with-editor-export-editor)
-
-(autoload 'dash-at-point "dash-at-point"
-          "search the word at point with dash." t nil)
-
-;; (defun my-irony-mode-hook ()
-;;   (define-key irony-mode-map
-;;       [remap completion-at-point] 'counsel-irony)
-;;   (define-key irony-mode-map
-;;       [remap complete-symbol] 'counsel-irony))
-;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-
-;; (require 'engine-mode)
-
-;; (require 'lentic)
-
-;; maximize emacs upon startup
-
 (use-package yankpad
   :commands (yankpad-expand)
   :config
@@ -317,10 +214,5 @@
   (setq paperless-capture-directory "~/scan"
         paperless-root-directory "~/docs")
 )
-
-;; (require 'slime)
-;; (slime-setup '(slime-fancy slime-tramp slime-asdf))
-;; (slime-setup '(slime-fancy slime-tramp))
-;; (slime-require :swank-listener-hooks)
 
 (toggle-frame-maximized)
